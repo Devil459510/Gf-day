@@ -1,1316 +1,1260 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title id="siteTitle">💌 A Little Something for You</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
-<style>
-/* ─── All styles (same as before) ─── /
-:root {
---plum-dark: #1c0f26;
---plum: #3b2050;
---plum-light: #5a3470;
---crimson: #9e1b3a;
---crimson-light: #c23a53;
---gold: #d4af37;
---gold-light: #f0d98c;
---cream: #f7ede0;
---blush: #e8b4bc;
---ease: cubic-bezier(0.22, 1, 0.36, 1);
-}
-* {
-box-sizing: border-box;
-margin: 0;
-padding: 0;
-}
-html {
-scroll-behavior: smooth;
-}
-body {
-background:
-radial-gradient(circle at 20% 8%, rgba(212, 175, 55, 0.09), transparent 40%),
-radial-gradient(circle at 85% 15%, rgba(158, 27, 58, 0.14), transparent 45%),
-radial-gradient(circle at 15% 85%, rgba(90, 52, 112, 0.25), transparent 50%),
-var(--plum-dark);
-color: var(--cream);
-font-family: 'Cormorant Garamond', serif;
-overflow-x: hidden;
-min-height: 100vh;
-position: relative;
-}
-.sparkle {
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-pointer-events: none;
-z-index: 0;
-overflow: hidden;
-}
-.sparkle span {
-position: absolute;
-width: 3px;
-height: 3px;
-background: var(--gold-light);
-border-radius: 50%;
-opacity: 0.5;
-animation: drift linear infinite;
-}
-@keyframes drift {
-from {
-transform: translateY(0) translateX(0);
-opacity: 0;
-}
-10% {
-opacity: 0.6;
-}
-90% {
-opacity: 0.3;
-}
-to {
-transform: translateY(-110vh) translateX(20px);
-opacity: 0;
-}
-}
-section {
-padding: 76px 22px;
-max-width: 640px;
-margin: 0 auto;
-text-align: center;
-position: relative;
-z-index: 1;
-}
-.reveal {
-opacity: 0;
-transform: translateY(28px);
-transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
-}
-.reveal.in {
-opacity: 1;
-transform: translateY(0);
-}
-/ Envelope /
-#hero {
-min-height: 94vh;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-padding-top: 40px;
-}
-.eyebrow {
-font-family: 'Quicksand', sans-serif;
-letter-spacing: 0.35em;
-text-transform: uppercase;
-font-size: 0.7rem;
-color: var(--gold-light);
-margin-bottom: 20px;
-opacity: 0.9;
-}
-.envelope-wrap {
-perspective: 1200px;
-cursor: pointer;
-user-select: none;
-}
-.envelope {
-width: min(78vw, 300px);
-height: min(52vw, 200px);
-background: linear-gradient(155deg, var(--plum-light), var(--plum) 60%);
-border: 1px solid rgba(212, 175, 55, 0.4);
-border-radius: 8px;
-position: relative;
-box-shadow: 0 25px 60px -20px rgba(0, 0, 0, 0.7);
-transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
-}
-.envelope:hover {
-transform: translateY(-5px) scale(1.01);
-box-shadow: 0 30px 70px -20px rgba(0, 0, 0, 0.75);
-}
-.flap {
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background: linear-gradient(155deg, var(--plum-light), var(--plum));
-clip-path: polygon(0 0, 50% 55%, 100% 0);
-border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-transform-origin: top;
-transition: transform 0.9s cubic-bezier(0.6, -0.1, 0.2, 1.15);
-z-index: 3;
-border-radius: 8px 8px 0 0;
-}
-.envelope.open .flap {
-transform: rotateX(180deg);
-}
-.seal {
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-width: 54px;
-height: 54px;
-background: radial-gradient(circle at 35% 30%, var(--crimson-light), var(--crimson) 70%);
-border-radius: 50%;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 1.35rem;
-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5), inset 0 -3px 6px rgba(0, 0, 0, 0.3);
-z-index: 4;
-transition: opacity 0.5s ease, transform 0.5s ease;
-}
-.envelope.open .seal {
-opacity: 0;
-transform: translate(-50%, -50%) scale(0.3) rotate(25deg);
-}
-.tap-hint {
-font-family: 'Quicksand', sans-serif;
-font-size: 0.85rem;
-color: var(--blush);
-margin-top: 24px;
-letter-spacing: 0.05em;
-animation: pulse 2.4s ease-in-out infinite;
-transition: opacity 0.4s ease;
-}
-.envelope.open ~ .tap-hint {
-opacity: 0;
-}
-@keyframes pulse {
-0%,
-100% {
-opacity: 0.55;
-}
-50% {
-opacity: 1;
-}
-}
-/ Letter /
-#letter {
-max-width: 560px;
-opacity: 0;
-max-height: 0;
-overflow: hidden;
-transition: opacity 1s var(--ease), max-height 1.3s var(--ease);
-}
-#letter.show {
-opacity: 1;
-max-height: 1400px;
-}
-.letter-card {
-background: linear-gradient(180deg, rgba(59, 32, 80, 0.55), rgba(28, 15, 38, 0.55));
-backdrop-filter: blur(2px);
-border: 1px solid rgba(212, 175, 55, 0.35);
-border-radius: 6px;
-padding: 46px 32px;
-text-align: left;
-position: relative;
-box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.65);
-}
-.letter-card::before {
-content: "🐾";
-position: absolute;
-top: -19px;
-left: 50%;
-transform: translateX(-50%);
-background: var(--plum-dark);
-padding: 3px 15px;
-font-size: 1.1rem;
-border: 1px solid rgba(212, 175, 55, 0.35);
-border-radius: 50px;
-}
-.letter-heading {
-font-family: 'Playfair Display', serif;
-font-style: italic;
-font-weight: 600;
-font-size: 1.55rem;
-color: var(--gold-light);
-margin-bottom: 24px;
-}
-.letter-card p {
-font-size: 1.18rem;
-line-height: 1.8;
-margin-bottom: 19px;
-color: var(--cream);
-}
-.letter-sign {
-font-family: 'Playfair Display', serif;
-font-style: italic;
-color: var(--gold-light);
-font-size: 1.3rem;
-margin-top: 12px;
-}
-/ Common /
-h2.section-title {
-font-family: 'Playfair Display', serif;
-font-weight: 700;
-font-size: 1.85rem;
-color: var(--gold-light);
-margin-bottom: 9px;
-letter-spacing: 0.01em;
-}
-.section-sub {
-font-family: 'Quicksand', sans-serif;
-color: var(--blush);
-font-size: 0.95rem;
-margin-bottom: 36px;
-opacity: 0.9;
-}
-.btn {
-font-family: 'Quicksand', sans-serif;
-font-weight: 700;
-font-size: 0.95rem;
-letter-spacing: 0.03em;
-color: var(--plum-dark);
-background: linear-gradient(135deg, var(--gold-light), var(--gold));
-border: none;
-padding: 14px 30px;
-border-radius: 50px;
-cursor: pointer;
-margin-top: 24px;
-box-shadow: 0 12px 26px -12px rgba(212, 175, 55, 0.65);
-transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease), opacity 0.25s ease;
-}
-.btn:hover {
-transform: translateY(-2px);
-box-shadow: 0 16px 32px -12px rgba(212, 175, 55, 0.75);
-}
-.btn:active {
-transform: scale(0.96) translateY(0);
-}
-.btn:disabled {
-opacity: 0.6;
-cursor: default;
-transform: none;
-}
-.game-msg {
-font-family: 'Quicksand', sans-serif;
-color: var(--blush);
-margin-top: 18px;
-min-height: 1.4em;
-font-size: 0.95rem;
-transition: opacity 0.4s ease;
-}
-/ Catch /
-#game-area {
-position: relative;
-width: 100%;
-max-width: 460px;
-height: 360px;
-margin: 0 auto;
-background: linear-gradient(180deg, rgba(59, 32, 80, 0.5), rgba(28, 15, 38, 0.7));
-border: 1px solid rgba(212, 175, 55, 0.3);
-border-radius: 16px;
-overflow: hidden;
-touch-action: none;
-cursor: none;
-box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.35);
-}
-.cat-player {
-position: absolute;
-bottom: 8px;
-font-size: 2.6rem;
-transform: translateX(-50%);
-filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.5));
-will-change: left;
-}
-.treat {
-position: absolute;
-font-size: 1.7rem;
-top: -30px;
-user-select: none;
-will-change: top;
-}
-.catch-pop {
-position: absolute;
-font-family: 'Quicksand', sans-serif;
-font-weight: 700;
-color: var(--gold-light);
-font-size: 1rem;
-pointer-events: none;
-animation: popUp 0.7s ease forwards;
-}
-@keyframes popUp {
-0% {
-opacity: 1;
-transform: translateY(0) scale(1);
-}
-100% {
-opacity: 0;
-transform: translateY(-30px) scale(1.2);
-}
-}
-.game-hud {
-display: flex;
-justify-content: space-between;
-max-width: 460px;
-margin: 16px auto 0;
-font-family: 'Quicksand', sans-serif;
-font-weight: 600;
-color: var(--gold-light);
-font-size: 0.95rem;
-}
-/ Pounce /
-.pounce-grid {
-display: grid;
-grid-template-columns: repeat(3, 1fr);
-gap: 12px;
-max-width: 340px;
-margin: 0 auto;
-}
-.hole {
-aspect-ratio: 1;
-background: radial-gradient(circle at 50% 40%, rgba(0, 0, 0, 0.5), rgba(59, 32, 80, 0.5) 70%);
-border: 1px solid rgba(212, 175, 55, 0.3);
-border-radius: 50%;
-display: flex;
-align-items: center;
-justify-content: center;
-overflow: hidden;
-position: relative;
-cursor: pointer;
-}
-.hole .paw {
-font-size: 1.8rem;
-transform: translateY(140%);
-transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-.hole.up .paw {
-transform: translateY(0);
-}
-.hole.hit .paw {
-transform: translateY(140%) scale(0.6);
-transition: transform 0.15s ease-in;
-}
-/ Wheel /
-.wheel-wrap {
-position: relative;
-width: min(78vw, 300px);
-height: min(78vw, 300px);
-margin: 0 auto;
-}
-.wheel-pointer {
-position: absolute;
-top: -14px;
-left: 50%;
-transform: translateX(-50%);
-width: 0;
-height: 0;
-border-left: 12px solid transparent;
-border-right: 12px solid transparent;
-border-top: 20px solid var(--gold-light);
-z-index: 5;
-filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.4));
-}
-#wheelCanvas {
-border-radius: 50%;
-box-shadow: 0 20px 50px -18px rgba(0, 0, 0, 0.7), 0 0 0 6px rgba(212, 175, 55, 0.25);
-transition: transform 4.5s cubic-bezier(0.15, 0.85, 0.15, 1);
-}
-.wheel-hub {
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-width: 20%;
-height: 20%;
-background: radial-gradient(circle at 35% 30%, var(--gold-light), var(--gold));
-border-radius: 50%;
-box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
-z-index: 4;
-}
-.wheel-result {
-font-family: 'Playfair Display', serif;
-font-style: italic;
-font-size: 1.35rem;
-color: var(--gold-light);
-margin-top: 28px;
-min-height: 1.6em;
-}
-/ Scratch /
-.scratch-wrap {
-position: relative;
-width: 100%;
-max-width: 420px;
-height: 180px;
-margin: 0 auto;
-border-radius: 14px;
-overflow: hidden;
-box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.6);
-}
-.scratch-message {
-position: absolute;
-inset: 0;
-display: flex;
-align-items: center;
-justify-content: center;
-padding: 24px;
-background: linear-gradient(160deg, rgba(158, 27, 58, 0.35), rgba(59, 32, 80, 0.55));
-font-family: 'Playfair Display', serif;
-font-style: italic;
-font-size: 1.2rem;
-color: var(--gold-light);
-text-align: center;
-}
-#scratchCanvas {
-position: absolute;
-inset: 0;
-touch-action: none;
-cursor: grab;
-}
-/ Memory /
-.memory-grid {
-display: grid;
-grid-template-columns: repeat(4, 1fr);
-gap: 11px;
-max-width: 400px;
-margin: 0 auto;
-}
-.memory-grid .card {
-aspect-ratio: 1;
-background: linear-gradient(135deg, var(--plum-light), var(--plum));
-border: 1px solid rgba(212, 175, 55, 0.35);
-border-radius: 11px;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 1.7rem;
-cursor: pointer;
-transition: transform 0.35s var(--ease), background 0.35s ease, box-shadow 0.35s ease;
-}
-.memory-grid .card:hover {
-transform: translateY(-2px);
-}
-.memory-grid .card.flipped,
-.memory-grid .card.matched {
-background: linear-gradient(135deg, var(--gold-light), var(--gold));
-transform: rotateY(0);
-}
-.memory-grid .card.matched {
-opacity: 0.5;
-cursor: default;
-box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.4);
-}
-.memory-grid .card .face {
-display: none;
-}
-.memory-grid .card.flipped .face,
-.memory-grid .card.matched .face {
-display: block;
-}
-.memory-grid .card .back {
-display: block;
-color: var(--gold-light);
-font-size: 1.2rem;
-}
-.memory-grid .card.flipped .back,
-.memory-grid .card.matched .back {
-display: none;
-}
-/ Compliment */
-.compliment-card {
-background: linear-gradient(180deg, rgba(158, 27, 58, 0.22), rgba(59, 32, 80, 0.4));
-border: 1px solid rgba(212, 175, 55, 0.3);
-border-radius: 16px;
-padding: 38px 28px;
-font-family: 'Playfair Display', serif;
-font-style: italic;
-font-size: 1.25rem;
-color: var(--gold-light);
-min-height: 110px;
-display: flex;
-align-items: center;
-justify-content: center;
-transition: opacity 0.3s ease, transform 0.3s ease;
-}
-.compliment-card.pulse {
-animation: cardPulse 0.5s var(--ease);
-}
-@keyframes cardPulse {
-0% {
-transform: scale(0.97);
-opacity: 0.5;
-}
-100% {
-transform: scale(1);
-opacity: 1;
-}
-}
-footer {
-text-align: center;
-padding: 70px 20px 90px;
-font-family: 'Playfair Display', serif;
-font-style: italic;
-color: var(--gold-light);
-font-size: 1.35rem;
-position: relative;
-z-index: 1;
-}
-footer span {
-display: block;
-font-family: 'Quicksand', sans-serif;
-font-style: normal;
-font-size: 0.8rem;
-color: var(--blush);
-margin-top: 12px;
-letter-spacing: 0.05em;
-}
-</style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title id="siteTitle">💌 A Little Something for You</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,600&amp;family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&amp;family=Quicksand:wght@500;600;700&amp;display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --plum-dark: #1c0f26;
+            --plum: #3b2050;
+            --plum-light: #5a3470;
+            --crimson: #9e1b3a;
+            --crimson-light: #c23a53;
+            --gold: #d4af37;
+            --gold-light: #f0d98c;
+            --cream: #f7ede0;
+            --blush: #e8b4bc;
+            --ease: cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            background:
+                radial-gradient(circle at 20% 8%, rgba(212, 175, 55, 0.09), transparent 40%),
+                radial-gradient(circle at 85% 15%, rgba(158, 27, 58, 0.14), transparent 45%),
+                radial-gradient(circle at 15% 85%, rgba(90, 52, 112, 0.25), transparent 50%),
+                var(--plum-dark);
+            color: var(--cream);
+            font-family: 'Cormorant Garamond', serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+        .sparkle {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .sparkle span {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--gold-light);
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: drift linear infinite;
+        }
+        @keyframes drift {
+            from {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            to {
+                transform: translateY(-110vh) translateX(20px);
+                opacity: 0;
+            }
+        }
+        section {
+            padding: 76px 22px;
+            max-width: 640px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+        }
+        .reveal.in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #hero {
+            min-height: 94vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-top: 40px;
+        }
+        .eyebrow {
+            font-family: 'Quicksand', sans-serif;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            color: var(--gold-light);
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        .envelope-wrap {
+            perspective: 1200px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .envelope {
+            width: min(78vw, 300px);
+            height: min(52vw, 200px);
+            background: linear-gradient(155deg, var(--plum-light), var(--plum) 60%);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 8px;
+            position: relative;
+            box-shadow: 0 25px 60px -20px rgba(0, 0, 0, 0.7);
+            transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
+        }
+        .envelope:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 30px 70px -20px rgba(0, 0, 0, 0.75);
+        }
+        .flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(155deg, var(--plum-light), var(--plum));
+            clip-path: polygon(0 0, 50% 55%, 100% 0);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            transform-origin: top;
+            transition: transform 0.9s cubic-bezier(0.6, -0.1, 0.2, 1.15);
+            z-index: 3;
+            border-radius: 8px 8px 0 0;
+        }
+        .envelope.open .flap {
+            transform: rotateX(180deg);
+        }
+        .seal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 54px;
+            height: 54px;
+            background: radial-gradient(circle at 35% 30%, var(--crimson-light), var(--crimson) 70%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.35rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5), inset 0 -3px 6px rgba(0, 0, 0, 0.3);
+            z-index: 4;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .envelope.open .seal {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.3) rotate(25deg);
+        }
+        .tap-hint {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 0.85rem;
+            color: var(--blush);
+            margin-top: 24px;
+            letter-spacing: 0.05em;
+            animation: pulse 2.4s ease-in-out infinite;
+            transition: opacity 0.4s ease;
+        }
+        .envelope.open~.tap-hint {
+            opacity: 0;
+        }
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 0.55;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+        #letter {
+            max-width: 560px;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: opacity 1s var(--ease), max-height 1.3s var(--ease);
+        }
+        #letter.show {
+            opacity: 1;
+            max-height: 1400px;
+        }
+        .letter-card {
+            background: linear-gradient(180deg, rgba(59, 32, 80, 0.55), rgba(28, 15, 38, 0.55));
+            backdrop-filter: blur(2px);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            border-radius: 6px;
+            padding: 46px 32px;
+            text-align: left;
+            position: relative;
+            box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.65);
+        }
+        .letter-card::before {
+            content: "🐾";
+            position: absolute;
+            top: -19px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--plum-dark);
+            padding: 3px 15px;
+            font-size: 1.1rem;
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            border-radius: 50px;
+        }
+        .letter-heading {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 600;
+            font-size: 1.55rem;
+            color: var(--gold-light);
+            margin-bottom: 24px;
+        }
+        .letter-card p {
+            font-size: 1.18rem;
+            line-height: 1.8;
+            margin-bottom: 19px;
+            color: var(--cream);
+        }
+        .letter-sign {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--gold-light);
+            font-size: 1.3rem;
+            margin-top: 12px;
+        }
+        h2.section-title {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.85rem;
+            color: var(--gold-light);
+            margin-bottom: 9px;
+            letter-spacing: 0.01em;
+        }
+        .section-sub {
+            font-family: 'Quicksand', sans-serif;
+            color: var(--blush);
+            font-size: 0.95rem;
+            margin-bottom: 36px;
+            opacity: 0.9;
+        }
+        .btn {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 0.03em;
+            color: var(--plum-dark);
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border: none;
+            padding: 14px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 24px;
+            box-shadow: 0 12px 26px -12px rgba(212, 175, 55, 0.65);
+            transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease), opacity 0.25s ease;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 32px -12px rgba(212, 175, 55, 0.75);
+        }
+        .btn:active {
+            transform: scale(0.96) translateY(0);
+        }
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: default;
+            transform: none;
+        }
+        .game-msg {
+            font-family: 'Quicksand', sans-serif;
+            color: var(--blush);
+            margin-top: 18px;
+            min-height: 1.4em;
+            font-size: 0.95rem;
+            transition: opacity 0.4s ease;
+        }
+        #game-area {
+            position: relative;
+            width: 100%;
+            max-width: 460px;
+            height: 360px;
+            margin: 0 auto;
+            background: linear-gradient(180deg, rgba(59, 32, 80, 0.5), rgba(28, 15, 38, 0.7));
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 16px;
+            overflow: hidden;
+            touch-action: none;
+            cursor: none;
+            box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.35);
+        }
+        .cat-player {
+            position: absolute;
+            bottom: 8px;
+            font-size: 2.6rem;
+            transform: translateX(-50%);
+            filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.5));
+            will-change: left;
+        }
+        .treat {
+            position: absolute;
+            font-size: 1.7rem;
+            top: -30px;
+            user-select: none;
+            will-change: top;
+        }
+        .catch-pop {
+            position: absolute;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            color: var(--gold-light);
+            font-size: 1rem;
+            pointer-events: none;
+            animation: popUp 0.7s ease forwards;
+        }
+        @keyframes popUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-30px) scale(1.2);
+            }
+        }
+        .game-hud {
+            display: flex;
+            justify-content: space-between;
+            max-width: 460px;
+            margin: 16px auto 0;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            color: var(--gold-light);
+            font-size: 0.95rem;
+        }
+        .pounce-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            max-width: 340px;
+            margin: 0 auto;
+        }
+        .hole {
+            aspect-ratio: 1;
+            background: radial-gradient(circle at 50% 40%, rgba(0, 0, 0, 0.5), rgba(59, 32, 80, 0.5) 70%);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+        .hole .paw {
+            font-size: 1.8rem;
+            transform: translateY(140%);
+            transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .hole.up .paw {
+            transform: translateY(0);
+        }
+        .hole.hit .paw {
+            transform: translateY(140%) scale(0.6);
+            transition: transform 0.15s ease-in;
+        }
+        .wheel-wrap {
+            position: relative;
+            width: min(78vw, 300px);
+            height: min(78vw, 300px);
+            margin: 0 auto;
+        }
+        .wheel-pointer {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-top: 20px solid var(--gold-light);
+            z-index: 5;
+            filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.4));
+        }
+        #wheelCanvas {
+            border-radius: 50%;
+            box-shadow: 0 20px 50px -18px rgba(0, 0, 0, 0.7), 0 0 0 6px rgba(212, 175, 55, 0.25);
+            transition: transform 4.5s cubic-bezier(0.15, 0.85, 0.15, 1);
+        }
+        .wheel-hub {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20%;
+            height: 20%;
+            background: radial-gradient(circle at 35% 30%, var(--gold-light), var(--gold));
+            border-radius: 50%;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+            z-index: 4;
+        }
+        .wheel-result {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.35rem;
+            color: var(--gold-light);
+            margin-top: 28px;
+            min-height: 1.6em;
+        }
+        .scratch-wrap {
+            position: relative;
+            width: 100%;
+            max-width: 420px;
+            height: 180px;
+            margin: 0 auto;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.6);
+        }
+        .scratch-message {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: linear-gradient(160deg, rgba(158, 27, 58, 0.35), rgba(59, 32, 80, 0.55));
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            color: var(--gold-light);
+            text-align: center;
+        }
+        #scratchCanvas {
+            position: absolute;
+            inset: 0;
+            touch-action: none;
+            cursor: grab;
+        }
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 11px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .memory-grid .card {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, var(--plum-light), var(--plum));
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            border-radius: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.7rem;
+            cursor: pointer;
+            transition: transform 0.35s var(--ease), background 0.35s ease, box-shadow 0.35s ease;
+        }
+        .memory-grid .card:hover {
+            transform: translateY(-2px);
+        }
+        .memory-grid .card.flipped,
+        .memory-grid .card.matched {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            transform: rotateY(0);
+        }
+        .memory-grid .card.matched {
+            opacity: 0.5;
+            cursor: default;
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.4);
+        }
+        .memory-grid .card .face {
+            display: none;
+        }
+        .memory-grid .card.flipped .face,
+        .memory-grid .card.matched .face {
+            display: block;
+        }
+        .memory-grid .card .back {
+            display: block;
+            color: var(--gold-light);
+            font-size: 1.2rem;
+        }
+        .memory-grid .card.flipped .back,
+        .memory-grid .card.matched .back {
+            display: none;
+        }
+        .compliment-card {
+            background: linear-gradient(180deg, rgba(158, 27, 58, 0.22), rgba(59, 32, 80, 0.4));
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 16px;
+            padding: 38px 28px;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.25rem;
+            color: var(--gold-light);
+            min-height: 110px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .compliment-card.pulse {
+            animation: cardPulse 0.5s var(--ease);
+        }
+        @keyframes cardPulse {
+            0% {
+                transform: scale(0.97);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        footer {
+            text-align: center;
+            padding: 70px 20px 90px;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--gold-light);
+            font-size: 1.35rem;
+            position: relative;
+            z-index: 1;
+        }
+        footer span {
+            display: block;
+            font-family: 'Quicksand', sans-serif;
+            font-style: normal;
+            font-size: 0.8rem;
+            color: var(--blush);
+            margin-top: 12px;
+            letter-spacing: 0.05em;
+        }
+    </style>
 </head>
 <body>
 
-<div class="sparkle" id="sparkleLayer"></div>
-
-<!-- ─── Envelope ─── -->
-<section id="hero">
-<div class="eyebrow" id="envelopeLabel">💌 For You</div>
-<div class="envelope-wrap" id="envelopeWrap">
-<div class="envelope" id="envelope">
-<div class="flap"></div>
-<div class="seal">🐾</div>
-</div>
-</div>
-<div class="tap-hint" id="tapHint">👆 Tap the envelope</div>
-</section>
-
-<!-- ─── Letter ─── -->
-<section id="letter">
-<div class="letter-card" id="letterCard">
-<div class="letter-heading" id="letterHeading">✨ For the Most Special You ✨</div>
-<div id="letterParagraphs"></div>
-<div class="letter-sign" id="letterSignature">— Always yours · 🐾</div>
-</div>
-</section>
-
-<!-- ─── Dynamic sections ─── -->
-<div id="dynamicSections"></div>
-
-<footer id="footer">
-<div id="footerText">🐾 For the one and only you</div>
-<span id="footerSubtext">— Always yours · 2026 —</span>
-</footer>
-
-<script>
-// ═══════════════════════════════════════════════════════════════
-// ✏️ EDIT THIS CONFIG OBJECT TO CUSTOMIZE EVERYTHING
-// ═══════════════════════════════════════════════════════════════
-const CONFIG = {
-// 👤 Change this name – it will replace every {{name}} in texts
-recipientName: "zyro",
-
-// 📝 All texts – you can use {{name}} anywhere to insert the recipient's name
-siteTitle: "💌 A Little Something for {{name}}",
-envelope: {
-label: "💌 For {{name}}",
-tapHint: "👆 Tap the envelope",
-letterHeading: "✨ For the Most Special {{name}} ✨",
-letterParagraphs: [
-"There are things I've kept inside for a long time, and today I finally get to write them down.",
-"Do you know? {{name}}, you are the brightest part of my day. Not because of anything grand you do, but because of who you are. The way you focus, the way you laugh, even the way you space out — they all make me feel that the world is a better place with you in it.",
-"I often wonder how to describe you accurately. But then I realise, I don't need to — because you're simply you. The one who finds joy in little things, who can be stubborn yet soft‑hearted, and who makes me want to be a better person.",
-"This is a little corner I made just for {{name}}. There are games, a wheel, a scratch‑off surprise, and endless compliments. Every time you open it, it's me saying:",
-"Thank you, {{name}}, for being in my life."
- ],
-letterSignature: "— Always yours, for {{name}} · 🐾"
-},
-games: {
-catch: {
-title: "🐟 Catch the Treat",
-subtitle: "Move your finger or mouse to catch the falling fish",
-duration: 25,
-spawnInterval: 400,
-catEmoji: "🐱",
-treatEmoji: "🐟",
-messages: {
-start: "👆 Move the cat to catch treats",
-playing: "👆 Keep catching, {{name}}!",
-miss: "😿 Missed… try again, {{name}}!",
-catch: "😸 Nice catch, {{name}}!",
-gameOver: "⏰ Time up! Score: "
-}
-},
-pounce: {
-title: "🐾 Pounce!",
-subtitle: "Tap the paws before they disappear",
-duration: 20,
-pawEmoji: "🐾",
-messages: {
-start: "👆 Tap the popping paws, {{name}}!",
-playing: "👆 Keep pouncing!",
-hit: "👏 Got it, {{name}}!",
-gameOver: "⏰ Done! Score: "
-}
-},
-wheel: {
-title: "🎡 Date Spin",
-subtitle: "Let fate decide our next outing",
-options: ["🍜 Ramen", "🎬 Movie", "☕ Coffee", "🚶 Walk", "📚 Bookstore", "🍰 Dessert",
-"🎨 Paint", "🎵 Music"
- ],
-colors: ["#9e1b3a", "#5a3470", "#d4af37", "#c23a53", "#3b2050", "#f0d98c", "#7a4a8a",
-"#e8b4bc"
- ],
-resultPrefix: "🎯 ",
-spinBtn: "🔄 Spin!"
-},
-scratch: {
-title: "🎁 Scratch to Reveal",
-subtitle: "Scratch the gold foil with your finger",
-message: "✨ {{name}} – you are the one I treasure most ✨"
-},
-memory: {
-title: "🧩 Memory Match",
-subtitle: "Find all 6 pairs of gold‑purple icons",
-emojis: ["🐱", "🐾", "🌟", "💜", "✨", "🌙"],
-backEmoji: "⭐",
-messages: {
-start: "⭐ Flip cards to match, {{name}}!",
-flip: "👆 Flip another card",
-match: "✅ Match found, {{name}}!",
-complete: "🎉 You completed all pairs, {{name}}!",
-wrong: "❌ Not a match, try again"
-}
-},
-compliment: {
-title: "💖 Compliment Booth",
-subtitle: "Feeling down? Tap here for a boost",
-button: "🌟 Give me a compliment",
-placeholder: "✨ Tap the button ✨",
-list: [
-"✨ {{name}}, your smile lights up the world",
-"💖 {{name}}, you are the person I most want to meet",
-"🌟 {{name}}, your existence is a beautiful thing",
-"🌈 {{name}}, every day with you is a gift",
-"🌸 {{name}}, you are gentler than spring",
-"🔥 {{name}}, you look amazing when you are focused",
-"🍀 {{name}}, meeting you is my best luck",
-"💫 {{name}}, you deserve all the beauty in the world",
-"🌺 {{name}}, you make everything feel possible",
-"⭐ {{name}}, you are truly one of a kind"
- ]
-}
-},
-footer: {
-text: "🐾 For {{name}} – the one and only you",
-subtext: "— Always yours · 2026 —"
-},
-colors: {
-plumDark: "#1c0f26",
-plum: "#3b2050",
-plumLight: "#5a3470",
-crimson: "#9e1b3a",
-crimsonLight: "#c23a53",
-gold: "#d4af37",
-goldLight: "#f0d98c",
-cream: "#f7ede0",
-blush: "#e8b4bc"
-}
-};
-
-// ═══════════════════════════════════════════════════════════════
-// 🚀 DO NOT EDIT BELOW – it builds everything from CONFIG
-// ═══════════════════════════════════════════════════════════════
-
-function replaceName(str) {
-return str.replace(/{{name}}/g, CONFIG.recipientName || 'you');
-}
-
-function applyConfig() {
-const name = CONFIG.recipientName || 'you';
-
-// Colors
-const root = document.documentElement;
-const c = CONFIG.colors;
-root.style.setProperty('--plum-dark', c.plumDark);
-root.style.setProperty('--plum', c.plum);
-root.style.setProperty('--plum-light', c.plumLight);
-root.style.setProperty('--crimson', c.crimson);
-root.style.setProperty('--crimson-light', c.crimsonLight);
-root.style.setProperty('--gold', c.gold);
-root.style.setProperty('--gold-light', c.goldLight);
-root.style.setProperty('--cream', c.cream);
-root.style.setProperty('--blush', c.blush);
-
-// Title
-document.getElementById('siteTitle').textContent = replaceName(CONFIG.siteTitle);
-
-// Envelope
-document.getElementById('envelopeLabel').textContent = replaceName(CONFIG.envelope.label);
-document.getElementById('tapHint').textContent = replaceName(CONFIG.envelope.tapHint);
-
-// Letter
-document.getElementById('letterHeading').textContent = replaceName(CONFIG.envelope.letterHeading);
-const pContainer = document.getElementById('letterParagraphs');
-pContainer.innerHTML = '';
-CONFIG.envelope.letterParagraphs.forEach(p => {
-const para = document.createElement('p');
-para.textContent = replaceName(p);
-pContainer.appendChild(para);
-});
-document.getElementById('letterSignature').textContent = replaceName(CONFIG.envelope.letterSignature);
-
-// Footer
-document.getElementById('footerText').textContent = replaceName(CONFIG.footer.text);
-document.getElementById('footerSubtext').textContent = replaceName(CONFIG.footer.subtext);
-
-// Store compliment list with name replaced
-window._complimentList = CONFIG.games.compliment.list.map(replaceName);
-
-// Build all sections
-buildSections();
-}
-
-function createSection(title, subtitle) {
-const section = document.createElement('section');
-section.className = 'reveal';
-const h2 = document.createElement('h2');
-h2.className = 'section-title';
-h2.textContent = replaceName(title);
-section.appendChild(h2);
-const sub = document.createElement('p');
-sub.className = 'section-sub';
-sub.textContent = replaceName(subtitle);
-section.appendChild(sub);
-return section;
-}
-
-function buildSections() {
-const container = document.getElementById('dynamicSections');
-container.innerHTML = '';
-
-const games = CONFIG.games;
-
-// ---- Catch ----
-const catchSection = createSection(games.catch.title, games.catch.subtitle);
-const catchArea = document.createElement('div');
-catchArea.id = 'game-area';
-catchArea.innerHTML =
-<div class="cat-player" id="catPlayer"&gt;${games.catch.catEmoji}</div>; catchSection.appendChild(catchArea); const catchHUD = document.createElement('div'); catchHUD.className = 'game-hud'; catchHUD.innerHTML =
-<span>🍣 <span id="catchScore">0</span></span>
-<span>⏱️ <span id="catchTimer">${games.catch.duration}&lt;/span&gt;s&lt;/span&gt;;
-catchSection.appendChild(catchHUD);
-const catchMsg = document.createElement('div');
-catchMsg.className = 'game-msg';
-catchMsg.id = 'catchMsg';
-catchMsg.textContent = replaceName(games.catch.messages.start);
-catchSection.appendChild(catchMsg);
-container.appendChild(catchSection);
-
-// ---- Pounce ----
-const pounceSection = createSection(games.pounce.title, games.pounce.subtitle);
-const pounceGrid = document.createElement('div');
-pounceGrid.className = 'pounce-grid';
-pounceGrid.id = 'pounceGrid';
-for (let i = 0; i < 9; i++) {
-const hole = document.createElement('div');
-hole.className = 'hole';
-hole.dataset.index = i;
-const paw = document.createElement('div');
-paw.className = 'paw';
-paw.textContent = games.pounce.pawEmoji;
-hole.appendChild(paw);
-pounceGrid.appendChild(hole);
-}
-pounceSection.appendChild(pounceGrid);
-const pounceHUD = document.createElement('div');
-pounceHUD.className = 'game-hud';
-pounceHUD.style.justifyContent = 'center';
-pounceHUD.style.gap = '40px';
-pounceHUD.innerHTML = &lt;span&gt;🎯 &lt;span id="pounceScore"&gt;0&lt;/span&gt;&lt;/span&gt; &lt;span&gt;⏱️ &lt;span id="pounceTimer"&gt;${games.pounce.duration}</span>s</span>
-`;
-pounceSection.appendChild(pounceHUD);
-const pounceMsg = document.createElement('div');
-pounceMsg.className = 'game-msg';
-pounceMsg.id = 'pounceMsg';
-pounceMsg.textContent = replaceName(games.pounce.messages.start);
-pounceSection.appendChild(pounceMsg);
-container.appendChild(pounceSection);
-
-// ---- Wheel ----
-const wheelSection = createSection(games.wheel.title, games.wheel.subtitle);
-const wheelWrap = document.createElement('div');
-wheelWrap.className = 'wheel-wrap';
-wheelWrap.innerHTML = &lt;div class="wheel-pointer"&gt;▼&lt;/div&gt; &lt;canvas id="wheelCanvas" width="600" height="600"&gt;&lt;/canvas&gt; &lt;div class="wheel-hub"&gt;&lt;/div&gt;;
-wheelSection.appendChild(wheelWrap);
-const wheelResult = document.createElement('div');
-wheelResult.className = 'wheel-result';
-wheelResult.id = 'wheelResult';
-wheelResult.textContent = '🎲 Tap the wheel';
-wheelSection.appendChild(wheelResult);
-const spinBtn = document.createElement('button');
-spinBtn.className = 'btn';
-spinBtn.id = 'spinBtn';
-spinBtn.textContent = games.wheel.spinBtn;
-wheelSection.appendChild(spinBtn);
-container.appendChild(wheelSection);
-
-// ---- Scratch ----
-const scratchSection = createSection(games.scratch.title, games.scratch.subtitle);
-const scratchWrap = document.createElement('div');
-scratchWrap.className = 'scratch-wrap';
-scratchWrap.innerHTML = &lt;div class="scratch-message" id="scratchMessage"&gt;${replaceName(games.scratch.message)}</div>
-<canvas id="scratchCanvas" width="420" height="180"></canvas>
-`;
-scratchSection.appendChild(scratchWrap);
-container.appendChild(scratchSection);
-
-// ---- Memory ----
-const memorySection = createSection(games.memory.title, games.memory.subtitle);
-const memoryGrid = document.createElement('div');
-memoryGrid.className = 'memory-grid';
-memoryGrid.id = 'memoryGrid';
-memorySection.appendChild(memoryGrid);
-const memoryMsg = document.createElement('div');
-memoryMsg.className = 'game-msg';
-memoryMsg.id = 'memoryMsg';
-memoryMsg.textContent = replaceName(games.memory.messages.start);
-memorySection.appendChild(memoryMsg);
-container.appendChild(memorySection);
-
-// ---- Compliment ----
-const complimentSection = createSection(games.compliment.title, games.compliment.subtitle);
-const complimentCard = document.createElement('div');
-complimentCard.className = 'compliment-card';
-complimentCard.id = 'complimentCard';
-complimentCard.textContent = replaceName(games.compliment.placeholder);
-complimentSection.appendChild(complimentCard);
-const compBtn = document.createElement('button');
-compBtn.className = 'btn';
-compBtn.id = 'complimentBtn';
-compBtn.textContent = replaceName(games.compliment.button);
-complimentSection.appendChild(compBtn);
-container.appendChild(complimentSection);
-
-// Init games
-initCatchGame(games.catch);
-initPounceGame(games.pounce);
-initWheelGame(games.wheel);
-initScratchGame();
-initMemoryGame(games.memory);
-initComplimentGame();
-}
-
-// ---- Game initializers (same as before, but using CONFIG messages with name replacement) ----
-
-function initCatchGame(cfg) {
-const area = document.getElementById('game-area');
-const cat = document.getElementById('catPlayer');
-const scoreEl = document.getElementById('catchScore');
-const timerEl = document.getElementById('catchTimer');
-const msgEl = document.getElementById('catchMsg');
-
-if (!area) return;
-
-let score = 0,
-timeLeft = cfg.duration,
-gameRunning = false,
-treatInterval, timerInterval;
-let catX = 50;
-
-function updateCat() { cat.style.left = catX + '%'; }
-
-function spawnTreat() {
-if (!gameRunning) return;
-const treat = document.createElement('div');
-treat.className = 'treat';
-treat.textContent = cfg.treatEmoji;
-const x = 5 + Math.random() * 90;
-treat.style.left = x + '%';
-treat.style.top = '-30px';
-area.appendChild(treat);
-
-let y = -30;
-const fall = setInterval(() => {
-y += 3;
-treat.style.top = y + 'px';
-const rect = treat.getBoundingClientRect();
-const catRect = cat.getBoundingClientRect();
-if (rect.bottom >= catRect.top &&
-rect.left < catRect.right - 20 &&
-rect.right > catRect.left + 20) {
-clearInterval(fall);
-treat.remove();
-score++;
-scoreEl.textContent = score;
-const pop = document.createElement('div');
-pop.className = 'catch-pop';
-pop.textContent = '+1 🐟';
-pop.style.left = (x + 2) + '%';
-pop.style.top = '50%';
-area.appendChild(pop);
-setTimeout(() => pop.remove(), 700);
-msgEl.textContent = replaceName(cfg.messages.catch);
-setTimeout(() => { if (gameRunning) msgEl.textContent = replaceName(cfg.messages.playing); },
-400);
-}
-if (y > 380) {
-clearInterval(fall);
-treat.remove();
-msgEl.textContent = replaceName(cfg.messages.miss);
-setTimeout(() => { if (gameRunning) msgEl.textContent = replaceName(cfg.messages.playing); },
-500);
-}
-}, 20);
-}
-
-function moveCat(e) {
-const rect = area.getBoundingClientRect();
-const x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
-catX = Math.max(5, Math.min(95, (x / rect.width) * 100));
-updateCat();
-}
-area.addEventListener('mousemove', moveCat);
-area.addEventListener('touchmove', (e) => { e.preventDefault();
-moveCat(e); });
-
-function startGame() {
-if (gameRunning) return;
-gameRunning = true;
-score = 0;
-timeLeft = cfg.duration;
-scoreEl.textContent = '0';
-timerEl.textContent = cfg.duration;
-msgEl.textContent = replaceName(cfg.messages.start);
-
-treatInterval = setInterval(spawnTreat, cfg.spawnInterval);
-timerInterval = setInterval(() => {
-timeLeft--;
-timerEl.textContent = timeLeft;
-if (timeLeft <= 0) {
-clearInterval(treatInterval);
-clearInterval(timerInterval);
-gameRunning = false;
-msgEl.textContent = cfg.messages.gameOver + score;
-document.querySelectorAll('.treat').forEach(el => el.remove());
-}
-}, 1000);
-}
-
-area.addEventListener('click', () => { if (!gameRunning) startGame(); });
-area.addEventListener('touchstart', (e) => { if (!gameRunning) { e.preventDefault();
-startGame(); } });
-setTimeout(() => { if (!gameRunning) msgEl.textContent = replaceName(cfg.messages.start); }, 500);
-}
-
-function initPounceGame(cfg) {
-const grid = document.getElementById('pounceGrid');
-const scoreEl = document.getElementById('pounceScore');
-const timerEl = document.getElementById('pounceTimer');
-const msgEl = document.getElementById('pounceMsg');
-
-if (!grid) return;
-
-let score = 0,
-timeLeft = cfg.duration,
-gameRunning = false;
-let pounceInterval, timerInterval;
-const holes = grid.querySelectorAll('.hole');
-
-function showPaw() {
-if (!gameRunning) return;
-holes.forEach(h => h.classList.remove('up', 'hit'));
-const idx = Math.floor(Math.random() * 9);
-holes[idx].classList.add('up');
-setTimeout(() => {
-if (gameRunning) holes[idx].classList.remove('up');
-}, 1200);
-}
-
-function startPounce() {
-if (gameRunning) return;
-gameRunning = true;
-score = 0;
-timeLeft = cfg.duration;
-scoreEl.textContent = '0';
-timerEl.textContent = cfg.duration;
-msgEl.textContent = replaceName(cfg.messages.start);
-
-pounceInterval = setInterval(showPaw, 700);
-timerInterval = setInterval(() => {
-timeLeft--;
-timerEl.textContent = timeLeft;
-if (timeLeft <= 0) {
-clearInterval(pounceInterval);
-clearInterval(timerInterval);
-gameRunning = false;
-holes.forEach(h => h.classList.remove('up', 'hit'));
-msgEl.textContent = cfg.messages.gameOver + score;
-}
-}, 1000);
-}
-
-holes.forEach(hole => {
-hole.addEventListener('click', () => {
-if (!gameRunning) return;
-if (hole.classList.contains('up') && !hole.classList.contains('hit')) {
-hole.classList.add('hit');
-score++;
-scoreEl.textContent = score;
-msgEl.textContent = replaceName(cfg.messages.hit);
-setTimeout(() => {
-hole.classList.remove('up', 'hit');
-msgEl.textContent = replaceName(cfg.messages.playing);
-}, 300);
-}
-});
-});
-
-grid.addEventListener('click', () => { if (!gameRunning) startPounce(); });
-grid.addEventListener('touchstart', (e) => { if (!gameRunning) { e.preventDefault();
-startPounce(); } });
-setTimeout(() => { if (!gameRunning) msgEl.textContent = replaceName(cfg.messages.start); }, 500);
-}
-
-function initWheelGame(cfg) {
-const canvas = document.getElementById('wheelCanvas');
-if (!canvas) return;
-const ctx = canvas.getContext('2d');
-const resultEl = document.getElementById('wheelResult');
-const spinBtn = document.getElementById('spinBtn');
-
-const options = cfg.options;
-const colors = cfg.colors;
-const segAngle = (2 * Math.PI) / options.length;
-let currentRotation = 0;
-let spinning = false;
-
-function drawWheel(rotation) {
-const cx = 300,
-cy = 300,
-r = 280;
-ctx.clearRect(0, 0, 600, 600);
-for (let i = 0; i < options.length; i++) {
-const start = i * segAngle + rotation;
-const end = start + segAngle;
-ctx.beginPath();
-ctx.moveTo(cx, cy);
-ctx.arc(cx, cy, r, start, end);
-ctx.closePath();
-ctx.fillStyle = colors[i % colors.length];
-ctx.fill();
-ctx.strokeStyle = 'rgba(255,255,255,0.15)';
-ctx.lineWidth = 2;
-ctx.stroke();
-
-ctx.save();
-ctx.translate(cx, cy);
-ctx.rotate(start + segAngle / 2);
-ctx.textAlign = 'center';
-ctx.textBaseline = 'middle';
-ctx.font = 'bold 24px "Quicksand", sans-serif';
-ctx.fillStyle = '#fff';
-ctx.shadowColor = 'rgba(0,0,0,0.5)';
-ctx.shadowBlur = 8;
-ctx.fillText(options[i], r * 0.62, 0);
-ctx.restore();
-}
-ctx.beginPath();
-ctx.arc(cx, cy, r, 0, 2 * Math.PI);
-ctx.strokeStyle = 'rgba(212,175,55,0.4)';
-ctx.lineWidth = 4;
-ctx.stroke();
-}
-drawWheel(0);
-
-function spin() {
-if (spinning) return;
-spinning = true;
-spinBtn.disabled = true;
-resultEl.textContent = '🎡 Spinning...';
-const extraSpins = 5 + Math.random() * 5;
-const targetAngle = extraSpins * 2 * Math.PI + Math.random() * 2 * Math.PI;
-const newRotation = currentRotation + targetAngle;
-canvas.style.transition = 'transform 4.5s cubic-bezier(0.15, 0.85, 0.15, 1)';
-canvas.style.transform = rotate(${newRotation}rad)`;
-setTimeout(() => {
-const normalized = newRotation % (2 * Math.PI);
-let idx = Math.floor(((2 * Math.PI - normalized) % (2 * Math.PI)) / segAngle);
-if (idx >= options.length) idx = 0;
-resultEl.textContent = cfg.resultPrefix + options[idx] + ' !';
-spinning = false;
-spinBtn.disabled = false;
-currentRotation = newRotation;
-}, 4800);
-}
-
-spinBtn.addEventListener('click', spin);
-canvas.addEventListener('click', spin);
-}
-
-function initScratchGame() {
-const canvas = document.getElementById('scratchCanvas');
-if (!canvas) return;
-const ctx = canvas.getContext('2d');
-const wrap = canvas.parentElement;
-const w = wrap.clientWidth || 420;
-const h = 180;
-canvas.width = w;
-canvas.height = h;
-canvas.style.width = w + 'px';
-canvas.style.height = h + 'px';
-
-ctx.fillStyle = '#d4af37';
-ctx.fillRect(0, 0, w, h);
-for (let i = 0; i < 60; i++) {
-ctx.fillStyle = i % 2 === 0 ? 'rgba(255,215,0,0.3)' : 'rgba(184,134,11,0.3)';
-ctx.beginPath();
-ctx.arc(Math.random() * w, Math.random() * h, 2 + Math.random() * 6, 0, 2 * Math.PI);
-ctx.fill();
-}
-
-let isDrawing = false;
-
-function getPos(e) {
-const rect = canvas.getBoundingClientRect();
-const x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
-const y = (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top;
-return { x, y };
-}
-
-function scratch(x, y) {
-ctx.globalCompositeOperation = 'destination-out';
-ctx.beginPath();
-ctx.arc(x, y, 18, 0, 2 * Math.PI);
-ctx.fill();
-ctx.globalCompositeOperation = 'source-over';
-}
-
-canvas.addEventListener('mousedown', (e) => { isDrawing = true; const p = getPos(e);
-scratch(p.x, p.y); });
-canvas.addEventListener('mousemove', (e) => { if (isDrawing) { const p = getPos(e);
-scratch(p.x, p.y); } });
-canvas.addEventListener('mouseup', () => { isDrawing = false; });
-canvas.addEventListener('mouseleave', () => { isDrawing = false; });
-canvas.addEventListener('touchstart', (e) => { e.preventDefault();
-isDrawing = true; const p = getPos(e);
-scratch(p.x, p.y); });
-canvas.addEventListener('touchmove', (e) => { e.preventDefault(); if (isDrawing) { const p = getPos(e);
-scratch(p.x, p.y); } });
-canvas.addEventListener('touchend', () => { isDrawing = false; });
-}
-
-function initMemoryGame(cfg) {
-const grid = document.getElementById('memoryGrid');
-const msgEl = document.getElementById('memoryMsg');
-if (!grid) return;
-
-const emojis = cfg.emojis;
-const pairs = [...emojis, ...emojis];
-for (let i = pairs.length - 1; i > 0; i--) {
-const j = Math.floor(Math.random() * (i + 1));
-[pairs[i], pairs[j]] = [pairs[j], pairs[i]];
-}
-
-let flipped = [];
-let matched = 0;
-let lock = false;
-
-function render() {
-grid.innerHTML = '';
-pairs.forEach((emoji, idx) => {
-const card = document.createElement('div');
-card.className = 'card';
-card.dataset.idx = idx;
-card.dataset.emoji = emoji;
-card.innerHTML = &lt;span class="back"&gt;${cfg.backEmoji}</span>
-<span class="face">${emoji}</span>
-`;
-card.addEventListener('click', () => flipCard(card));
-grid.appendChild(card);
-});
-}
-
-function flipCard(card) {
-if (lock) return;
-if (card.classList.contains('flipped') || card.classList.contains('matched')) return;
-
-card.classList.add('flipped');
-flipped.push(card);
-
-if (flipped.length === 2) {
-lock = true;
-const [a, b] = flipped;
-if (a.dataset.emoji === b.dataset.emoji) {
-a.classList.add('matched');
-b.classList.add('matched');
-matched++;
-flipped = [];
-lock = false;
-msgEl.textContent = replaceName(cfg.messages.match);
-if (matched === 6) msgEl.textContent = replaceName(cfg.messages.complete);
-setTimeout(() => { if (matched < 6) msgEl.textContent = replaceName(cfg.messages.start); },
-800);
-} else {
-msgEl.textContent = replaceName(cfg.messages.wrong);
-setTimeout(() => {
-a.classList.remove('flipped');
-b.classList.remove('flipped');
-flipped = [];
-lock = false;
-msgEl.textContent = replaceName(cfg.messages.start);
-}, 800);
-}
-} else {
-msgEl.textContent = replaceName(cfg.messages.flip);
-}
-}
-
-render();
-}
-
-function initComplimentGame() {
-const card = document.getElementById('complimentCard');
-const btn = document.getElementById('complimentBtn');
-if (!card || !btn) return;
-
-const list = window._complimentList || CONFIG.games.compliment.list.map(replaceName);
-btn.addEventListener('click', () => {
-const msg = list[Math.floor(Math.random() * list.length)];
-card.textContent = msg;
-card.classList.remove('pulse');
-void card.offsetWidth;
-card.classList.add('pulse');
-});
-}
-
-// ─── Envelope toggle ───
-document.getElementById('envelopeWrap').addEventListener('click', function() {
-const envelope = document.getElementById('envelope');
-const letter = document.getElementById('letter');
-envelope.classList.toggle('open');
-letter.classList.toggle('show');
-});
-
-// ─── Sparkles ───
-(function() {
-const layer = document.getElementById('sparkleLayer');
-for (let i = 0; i < 40; i++) {
-const span = document.createElement('span');
-span.style.left = Math.random() * 100 + 'vw';
-span.style.animationDuration = (12 + Math.random() * 20) + 's';
-span.style.animationDelay = (Math.random() * 15) + 's';
-span.style.top = (70 + Math.random() * 30) + 'vh';
-layer.appendChild(span);
-}
-})();
-
-// ─── Scroll reveal ───
-function setupReveal() {
-const els = document.querySelectorAll('.reveal');
-const observer = new IntersectionObserver((entries) => {
-entries.forEach(entry => {
-if (entry.isIntersecting) entry.target.classList.add('in');
-});
-}, { threshold: 0.1 });
-els.forEach(el => observer.observe(el));
-}
-
-// ─── Init ───
-applyConfig();
-setupReveal();
-</script>
+    <div class="sparkle" id="sparkleLayer"></div>
+
+    <section id="hero">
+        <div class="eyebrow" id="envelopeLabel">💌 For You</div>
+        <div class="envelope-wrap" id="envelopeWrap">
+            <div class="envelope" id="envelope">
+                <div class="flap"></div>
+                <div class="seal">🐾</div>
+            </div>
+        </div>
+        <div class="tap-hint" id="tapHint">👆 Tap the envelope</div>
+    </section>
+
+    <section id="letter">
+        <div class="letter-card">
+            <div class="letter-heading" id="letterHeading">✨ For the Most Special You ✨</div>
+            <div id="letterParagraphs"></div>
+            <div class="letter-sign" id="letterSignature">— Always yours · 🐾</div>
+        </div>
+    </section>
+
+    <div id="dynamicSections"></div>
+
+    <footer>
+        <div id="footerText">🐾 For the one and only you</div>
+        <span id="footerSubtext">— Always yours · 2026 —</span>
+    </footer>
+
+    <script>
+        // ══════════════════════════════════════════════════════════
+        //  ✏️  CONFIG – edit everything here
+        // ══════════════════════════════════════════════════════════
+        const CONFIG = {
+            recipientName: "zyro",
+            siteTitle: "💌 A Little Something for {{name}}",
+            envelope: {
+                label: "💌 For {{name}}",
+                tapHint: "👆 Tap the envelope",
+                letterHeading: "✨ For the Most Special {{name}} ✨",
+                letterParagraphs: [
+                    "There are things I've kept inside for a long time, and today I finally get to write them down.",
+                    "Do you know? {{name}}, you are the brightest part of my day. Not because of anything grand you do, but because of who you are. The way you focus, the way you laugh, even the way you space out — they all make me feel that the world is a better place with you in it.",
+                    "I often wonder how to describe you accurately. But then I realise, I don't need to — because you're simply you. The one who finds joy in little things, who can be stubborn yet soft‑hearted, and who makes me want to be a better person.",
+                    "This is a little corner I made just for {{name}}. There are games, a wheel, a scratch‑off surprise, and endless compliments. Every time you open it, it's me saying:",
+                    "Thank you, {{name}}, for being in my life."
+                ],
+                letterSignature: "— Always yours, for {{name}} · 🐾"
+            },
+            games: {
+                catch: {
+                    title: "🐟 Catch the Treat",
+                    subtitle: "Move your finger or mouse to catch the falling fish",
+                    duration: 25,
+                    spawnInterval: 400,
+                    catEmoji: "🐱",
+                    treatEmoji: "🐟",
+                    messages: {
+                        start: "👆 Move the cat to catch treats",
+                        playing: "👆 Keep catching, {{name}}!",
+                        miss: "😿 Missed… try again, {{name}}!",
+                        catch: "😸 Nice catch, {{name}}!",
+                        gameOver: "⏰ Time up! Score: "
+                    }
+                },
+                pounce: {
+                    title: "🐾 Pounce!",
+                    subtitle: "Tap the paws before they disappear",
+                    duration: 20,
+                    pawEmoji: "🐾",
+                    messages: {
+                        start: "👆 Tap the popping paws, {{name}}!",
+                        playing: "👆 Keep pouncing!",
+                        hit: "👏 Got it, {{name}}!",
+                        gameOver: "⏰ Done! Score: "
+                    }
+                },
+                wheel: {
+                    title: "🎡 Date Spin",
+                    subtitle: "Let fate decide our next outing",
+                    options: ["🍜 Ramen", "🎬 Movie", "☕ Coffee", "🚶 Walk", "📚 Bookstore", "🍰 Dessert",
+                        "🎨 Paint", "🎵 Music"
+                    ],
+                    colors: ["#9e1b3a", "#5a3470", "#d4af37", "#c23a53", "#3b2050", "#f0d98c", "#7a4a8a",
+                        "#e8b4bc"
+                    ],
+                    resultPrefix: "🎯 ",
+                    spinBtn: "🔄 Spin!"
+                },
+                scratch: {
+                    title: "🎁 Scratch to Reveal",
+                    subtitle: "Scratch the gold foil with your finger",
+                    message: "✨ {{name}} – you are the one I treasure most ✨"
+                },
+                memory: {
+                    title: "🧩 Memory Match",
+                    subtitle: "Find all 6 pairs of gold‑purple icons",
+                    emojis: ["🐱", "🐾", "🌟", "💜", "✨", "🌙"],
+                    backEmoji: "⭐",
+                    messages: {
+                        start: "⭐ Flip cards to match, {{name}}!",
+                        flip: "👆 Flip another card",
+                        match: "✅ Match found, {{name}}!",
+                        complete: "🎉 You completed all pairs, {{name}}!",
+                        wrong: "❌ Not a match, try again"
+                    }
+                },
+                compliment: {
+                    title: "💖 Compliment Booth",
+                    subtitle: "Feeling down? Tap here for a boost",
+                    button: "🌟 Give me a compliment",
+                    placeholder: "✨ Tap the button ✨",
+                    list: [
+                        "✨ {{name}}, your smile lights up the world",
+                        "💖 {{name}}, you are the person I most want to meet",
+                        "🌟 {{name}}, your existence is a beautiful thing",
+                        "🌈 {{name}}, every day with you is a gift",
+                        "🌸 {{name}}, you are gentler than spring",
+                        "🔥 {{name}}, you look amazing when you are focused",
+                        "🍀 {{name}}, meeting you is my best luck",
+                        "💫 {{name}}, you deserve all the beauty in the world",
+                        "🌺 {{name}}, you make everything feel possible",
+                        "⭐ {{name}}, you are truly one of a kind"
+                    ]
+                }
+            },
+            footer: {
+                text: "🐾 For {{name}} – the one and only you",
+                subtext: "— Always yours · 2026 —"
+            },
+            colors: {
+                plumDark: "#1c0f26",
+                plum: "#3b2050",
+                plumLight: "#5a3470",
+                crimson: "#9e1b3a",
+                crimsonLight: "#c23a53",
+                gold: "#d4af37",
+                goldLight: "#f0d98c",
+                cream: "#f7ede0",
+                blush: "#e8b4bc"
+            }
+        };
+
+        // ══════════════════════════════════════════════════════════
+        //  🚀  DO NOT EDIT BELOW – it builds everything from CONFIG
+        // ══════════════════════════════════════════════════════════
+
+        function replaceName(str) {
+            return str.replace(/\{\{name\}\}/g, CONFIG.recipientName || 'you');
+        }
+
+        function applyConfig() {
+            const root = document.documentElement;
+            const c = CONFIG.colors;
+            root.style.setProperty('--plum-dark', c.plumDark);
+            root.style.setProperty('--plum', c.plum);
+            root.style.setProperty('--plum-light', c.plumLight);
+            root.style.setProperty('--crimson', c.crimson);
+            root.style.setProperty('--crimson-light', c.crimsonLight);
+            root.style.setProperty('--gold', c.gold);
+            root.style.setProperty('--gold-light', c.goldLight);
+            root.style.setProperty('--cream', c.cream);
+            root.style.setProperty('--blush', c.blush);
+
+            document.getElementById('siteTitle').textContent = replaceName(CONFIG.siteTitle);
+            document.getElementById('envelopeLabel').textContent = replaceName(CONFIG.envelope.label);
+            document.getElementById('tapHint').textContent = replaceName(CONFIG.envelope.tapHint);
+            document.getElementById('letterHeading').textContent = replaceName(CONFIG.envelope.letterHeading);
+
+            const pContainer = document.getElementById('letterParagraphs');
+            pContainer.innerHTML = '';
+            CONFIG.envelope.letterParagraphs.forEach(p => {
+                const para = document.createElement('p');
+                para.textContent = replaceName(p);
+                pContainer.appendChild(para);
+            });
+            document.getElementById('letterSignature').textContent = replaceName(CONFIG.envelope.letterSignature);
+            document.getElementById('footerText').textContent = replaceName(CONFIG.footer.text);
+            document.getElementById('footerSubtext').textContent = replaceName(CONFIG.footer.subtext);
+
+            window._complimentList = CONFIG.games.compliment.list.map(replaceName);
+            buildSections();
+        }
+
+        function createSection(title, subtitle) {
+            const section = document.createElement('section');
+            section.className = 'reveal';
+            const h2 = document.createElement('h2');
+            h2.className = 'section-title';
+            h2.textContent = replaceName(title);
+            section.appendChild(h2);
+            const sub = document.createElement('p');
+            sub.className = 'section-sub';
+            sub.textContent = replaceName(subtitle);
+            section.appendChild(sub);
+            return section;
+        }
+
+        function buildSections() {
+            const container = document.getElementById('dynamicSections');
+            container.innerHTML = '';
+            const games = CONFIG.games;
+
+            // Catch
+            const catchSection = createSection(games.catch.title, games.catch.subtitle);
+            const catchArea = document.createElement('div');
+            catchArea.id = 'game-area';
+            catchArea.innerHTML = `<div class="cat-player" id="catPlayer">${games.catch.catEmoji}</div>`;
+            catchSection.appendChild(catchArea);
+            const catchHUD = document.createElement('div');
+            catchHUD.className = 'game-hud';
+            catchHUD.innerHTML =
+                `<span>🍣 <span id="catchScore">0</span></span><span>⏱️ <span id="catchTimer">${games.catch.duration}</span>s</span>`;
+            catchSection.appendChild(catchHUD);
+            const catchMsg = document.createElement('div');
+            catchMsg.className = 'game-msg';
+            catchMsg.id = 'catchMsg';
+            catchMsg.textContent = replaceName(games.catch.messages.start);
+            catchSection.appendChild(catchMsg);
+            container.appendChild(catchSection);
+
+            // Pounce
+            const pounceSection = createSection(games.pounce.title, games.pounce.subtitle);
+            const pounceGrid = document.createElement('div');
+            pounceGrid.className = 'pounce-grid';
+            pounceGrid.id = 'pounceGrid';
+            for (let i = 0; i < 9; i++) {
+                const hole = document.createElement('div');
+                hole.className = 'hole';
+                const paw = document.createElement('div');
+                paw.className = 'paw';
+                paw.textContent = games.pounce.pawEmoji;
+                hole.appendChild(paw);
+                pounceGrid.appendChild(hole);
+            }
+            pounceSection.appendChild(pounceGrid);
+            const pounceHUD = document.createElement('div');
+            pounceHUD.className = 'game-hud';
+            pounceHUD.style.justifyContent = 'center';
+            pounceHUD.style.gap = '40px';
+            pounceHUD.innerHTML =
+                `<span>🎯 <span id="pounceScore">0</span></span><span>⏱️ <span id="pounceTimer">${games.pounce.duration}</span>s</span>`;
+            pounceSection.appendChild(pounceHUD);
+            const pounceMsg = document.createElement('div');
+            pounceMsg.className = 'game-msg';
+            pounceMsg.id = 'pounceMsg';
+            pounceMsg.textContent = replaceName(games.pounce.messages.start);
+            pounceSection.appendChild(pounceMsg);
+            container.appendChild(pounceSection);
+
+            // Wheel
+            const wheelSection = createSection(games.wheel.title, games.wheel.subtitle);
+            const wheelWrap = document.createElement('div');
+            wheelWrap.className = 'wheel-wrap';
+            wheelWrap.innerHTML =
+                `<div class="wheel-pointer">▼</div><canvas id="wheelCanvas" width="600" height="600"></canvas><div class="wheel-hub"></div>`;
+            wheelSection.appendChild(wheelWrap);
+            const wheelResult = document.createElement('div');
+            wheelResult.className = 'wheel-result';
+            wheelResult.id = 'wheelResult';
+            wheelResult.textContent = '🎲 Tap the wheel';
+            wheelSection.appendChild(wheelResult);
+            const spinBtn = document.createElement('button');
+            spinBtn.className = 'btn';
+            spinBtn.id = 'spinBtn';
+            spinBtn.textContent = games.wheel.spinBtn;
+            wheelSection.appendChild(spinBtn);
+            container.appendChild(wheelSection);
+
+            // Scratch
+            const scratchSection = createSection(games.scratch.title, games.scratch.subtitle);
+            const scratchWrap = document.createElement('div');
+            scratchWrap.className = 'scratch-wrap';
+            scratchWrap.innerHTML =
+                `<div class="scratch-message" id="scratchMessage">${replaceName(games.scratch.message)}</div><canvas id="scratchCanvas" width="420" height="180"></canvas>`;
+            scratchSection.appendChild(scratchWrap);
+            container.appendChild(scratchSection);
+
+            // Memory
+            const memorySection = createSection(games.memory.title, games.memory.subtitle);
+            const memoryGrid = document.createElement('div');
+            memoryGrid.className = 'memory-grid';
+            memoryGrid.id = 'memoryGrid';
+            memorySection.appendChild(memoryGrid);
+            const memoryMsg = document.createElement('div');
+            memoryMsg.className = 'game-msg';
+            memoryMsg.id = 'memoryMsg';
+            memoryMsg.textContent = replaceName(games.memory.messages.start);
+            memorySection.appendChild(memoryMsg);
+            container.appendChild(memorySection);
+
+            // Compliment
+            const complimentSection = createSection(games.compliment.title, games.compliment.subtitle);
+            const complimentCard = document.createElement('div');
+            complimentCard.className = 'compliment-card';
+            complimentCard.id = 'complimentCard';
+            complimentCard.textContent = replaceName(games.compliment.placeholder);
+            complimentSection.appendChild(complimentCard);
+            const compBtn = document.createElement('button');
+            compBtn.className = 'btn';
+            compBtn.id = 'complimentBtn';
+            compBtn.textContent = replaceName(games.compliment.button);
+            complimentSection.appendChild(compBtn);
+            container.appendChild(complimentSection);
+
+            // Init games
+            initCatchGame(games.catch);
+            initPounceGame(games.pounce);
+            initWheelGame(games.wheel);
+            initScratchGame();
+            initMemoryGame(games.memory);
+            initComplimentGame();
+        }
+
+        // ---- Game initializers ----
+        function initCatchGame(cfg) {
+            const area = document.getElementById('game-area');
+            const cat = document.getElementById('catPlayer');
+            const scoreEl = document.getElementById('catchScore');
+            const timerEl = document.getElementById('catchTimer');
+            const msgEl = document.getElementById('catchMsg');
+            if (!area) return;
+            let score = 0,
+                timeLeft = cfg.duration,
+                gameRunning = false,
+                treatInterval, timerInterval;
+            let catX = 50;
+
+            function updateCat() { cat.style.left = catX + '%'; }
+
+            function spawnTreat() {
+                if (!gameRunning) return;
+                const treat = document.createElement('div');
+                treat.className = 'treat';
+                treat.textContent = cfg.treatEmoji;
+                const x = 5 + Math.random() * 90;
+                treat.style.left = x + '%';
+                treat.style.top = '-30px';
+                area.appendChild(treat);
+                let y = -30;
+                const fall = setInterval(() => {
+                    y += 3;
+                    treat.style.top = y + 'px';
+                    const rect = treat.getBoundingClientRect();
+                    const catRect = cat.getBoundingClientRect();
+                    if (rect.bottom >= catRect.top && rect.left < catRect.right - 20 && rect.right > catRect.left +
+                        20) {
+                        clearInterval(fall);
+                        treat.remove();
+                        score++;
+                        scoreEl.textContent = score;
+                        const pop = document.createElement('div');
+                        pop.className = 'catch-pop';
+                        pop.textContent = '+1 🐟';
+                        pop.style.left = (x + 2) + '%';
+                        pop.style.top = '50%';
+                        area.appendChild(pop);
+                        setTimeout(() => pop.remove(), 700);
+                        msgEl.textContent = replaceName(cfg.messages.catch);
+                        setTimeout(() => { if (gameRunning) msgEl.textContent = replaceName(cfg.messages.playing); },
+                            400);
+                    }
+                    if (y > 380) {
+                        clearInterval(fall);
+                        treat.remove();
+                        msgEl.textContent = replaceName(cfg.messages.miss);
+                        setTimeout(() => { if (gameRunning) msgEl.textContent = replaceName(cfg.messages.playing); },
+                            500);
+                    }
+                }, 20);
+            }
+
+            function moveCat(e) {
+                const rect = area.getBoundingClientRect();
+                const x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
+                catX = Math.max(5, Math.min(95, (x / rect.width) * 100));
+                updateCat();
+            }
+            area.addEventListener('mousemove', moveCat);
+            area.addEventListener('touchmove', (e) => { e.preventDefault();
+                moveCat(e); });
+
+            function startGame() {
+                if (gameRunning) return;
+                gameRunning = true;
+                score = 0;
+                timeLeft = cfg.duration;
+                scoreEl.textContent = '0';
+                timerEl.textContent = cfg.duration;
+                msgEl.textContent = replaceName(cfg.messages.start);
+                treatInterval = setInterval(spawnTreat, cfg.spawnInterval);
+                timerInterval = setInterval(() => {
+                    timeLeft--;
+                    timerEl.textContent = timeLeft;
+                    if (timeLeft <= 0) {
+                        clearInterval(treatInterval);
+                        clearInterval(timerInterval);
+                        gameRunning = false;
+                        msgEl.textContent = cfg.messages.gameOver + score;
+                        document.querySelectorAll('.treat').forEach(el => el.remove());
+                    }
+                }, 1000);
+            }
+            area.addEventListener('click', () => { if (!gameRunning) startGame(); });
+            area.addEventListener('touchstart', (e) => { if (!gameRunning) { e.preventDefault();
+                    startGame(); } });
+            setTimeout(() => { if (!gameRunning) msgEl.textContent = replaceName(cfg.messages.start); }, 500);
+        }
+
+        function initPounceGame(cfg) {
+            const grid = document.getElementById('pounceGrid');
+            const scoreEl = document.getElementById('pounceScore');
+            const timerEl = document.getElementById('pounceTimer');
+            const msgEl = document.getElementById('pounceMsg');
+            if (!grid) return;
+            let score = 0,
+                timeLeft = cfg.duration,
+                gameRunning = false;
+            let pounceInterval, timerInterval;
+            const holes = grid.querySelectorAll('.hole');
+
+            function showPaw() {
+                if (!gameRunning) return;
+                holes.forEach(h => h.classList.remove('up', 'hit'));
+                const idx = Math.floor(Math.random() * 9);
+                holes[idx].classList.add('up');
+                setTimeout(() => { if (gameRunning) holes[idx].classList.remove('up'); }, 1200);
+            }
+
+            function startPounce() {
+                if (gameRunning) return;
+                gameRunning = true;
+                score = 0;
+                timeLeft = cfg.duration;
+                scoreEl.textContent = '0';
+                timerEl.textContent = cfg.duration;
+                msgEl.textContent = replaceName(cfg.messages.start);
+                pounceInterval = setInterval(showPaw, 700);
+                timerInterval = setInterval(() => {
+                    timeLeft--;
+                    timerEl.textContent = timeLeft;
+                    if (timeLeft <= 0) {
+                        clearInterval(pounceInterval);
+                        clearInterval(timerInterval);
+                        gameRunning = false;
+                        holes.forEach(h => h.classList.remove('up', 'hit'));
+                        msgEl.textContent = cfg.messages.gameOver + score;
+                    }
+                }, 1000);
+            }
+            holes.forEach(hole => {
+                hole.addEventListener('click', () => {
+                    if (!gameRunning) return;
+                    if (hole.classList.contains('up') && !hole.classList.contains('hit')) {
+                        hole.classList.add('hit');
+                        score++;
+                        scoreEl.textContent = score;
+                        msgEl.textContent = replaceName(cfg.messages.hit);
+                        setTimeout(() => {
+                            hole.classList.remove('up', 'hit');
+                            msgEl.textContent = replaceName(cfg.messages.playing);
+                        }, 300);
+                    }
+                });
+            });
+            grid.addEventListener('click', () => { if (!gameRunning) startPounce(); });
+            grid.addEventListener('touchstart', (e) => { if (!gameRunning) { e.preventDefault();
+                    startPounce(); } });
+            setTimeout(() => { if (!gameRunning) msgEl.textContent = replaceName(cfg.messages.start); }, 500);
+        }
+
+        function initWheelGame(cfg) {
+            const canvas = document.getElementById('wheelCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const resultEl = document.getElementById('wheelResult');
+            const spinBtn = document.getElementById('spinBtn');
+            const options = cfg.options;
+            const colors = cfg.colors;
+            const segAngle = (2 * Math.PI) / options.length;
+            let currentRotation = 0,
+                spinning = false;
+
+            function drawWheel(rotation) {
+                const cx = 300,
+                    cy = 300,
+                    r = 280;
+                ctx.clearRect(0, 0, 600, 600);
+                for (let i = 0; i < options.length; i++) {
+                    const start = i * segAngle + rotation;
+                    const end = start + segAngle;
+                    ctx.beginPath();
+                    ctx.moveTo(cx, cy);
+                    ctx.arc(cx, cy, r, start, end);
+                    ctx.closePath();
+                    ctx.fillStyle = colors[i % colors.length];
+                    ctx.fill();
+                    ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                    ctx.save();
+                    ctx.translate(cx, cy);
+                    ctx.rotate(start + segAngle / 2);
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.font = 'bold 24px "Quicksand", sans-serif';
+                    ctx.fillStyle = '#fff';
+                    ctx.shadowColor = 'rgba(0,0,0,0.5)';
+                    ctx.shadowBlur = 8;
+                    ctx.fillText(options[i], r * 0.62, 0);
+                    ctx.restore();
+                }
+                ctx.beginPath();
+                ctx.arc(cx, cy, r, 0, 2 * Math.PI);
+                ctx.strokeStyle = 'rgba(212,175,55,0.4)';
+                ctx.lineWidth = 4;
+                ctx.stroke();
+            }
+            drawWheel(0);
+
+            function spin() {
+                if (spinning) return;
+                spinning = true;
+                spinBtn.disabled = true;
+                resultEl.textContent = '🎡 Spinning...';
+                const extraSpins = 5 + Math.random() * 5;
+                const targetAngle = extraSpins * 2 * Math.PI + Math.random() * 2 * Math.PI;
+                const newRotation = currentRotation + targetAngle;
+                canvas.style.transition = 'transform 4.5s cubic-bezier(0.15, 0.85, 0.15, 1)';
+                canvas.style.transform = `rotate(${newRotation}rad)`;
+                setTimeout(() => {
+                    const normalized = newRotation % (2 * Math.PI);
+                    let idx = Math.floor(((2 * Math.PI - normalized) % (2 * Math.PI)) / segAngle);
+                    if (idx >= options.length) idx = 0;
+                    resultEl.textContent = cfg.resultPrefix + options[idx] + ' !';
+                    spinning = false;
+                    spinBtn.disabled = false;
+                    currentRotation = newRotation;
+                }, 4800);
+            }
+            spinBtn.addEventListener('click', spin);
+            canvas.addEventListener('click', spin);
+        }
+
+        function initScratchGame() {
+            const canvas = document.getElementById('scratchCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const wrap = canvas.parentElement;
+            const w = wrap.clientWidth || 420;
+            const h = 180;
+            canvas.width = w;
+            canvas.height = h;
+            canvas.style.width = w + 'px';
+            canvas.style.height = h + 'px';
+            ctx.fillStyle = '#d4af37';
+            ctx.fillRect(0, 0, w, h);
+            for (let i = 0; i < 60; i++) {
+                ctx.fillStyle = i % 2 === 0 ? 'rgba(255,215,0,0.3)' : 'rgba(184,134,11,0.3)';
+                ctx.beginPath();
+                ctx.arc(Math.random() * w, Math.random() * h, 2 + Math.random() * 6, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+            let isDrawing = false;
+
+            function getPos(e) {
+                const rect = canvas.getBoundingClientRect();
+                const x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
+                const y = (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top;
+                return { x, y };
+            }
+
+            function scratch(x, y) {
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.beginPath();
+                ctx.arc(x, y, 18, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.globalCompositeOperation = 'source-over';
+            }
+            canvas.addEventListener('mousedown', (e) => { isDrawing = true; const p = getPos(e);
+                scratch(p.x, p.y); });
+            canvas.addEventListener('mousemove', (e) => { if (isDrawing) { const p = getPos(e);
+                    scratch(p.x, p.y); } });
+            canvas.addEventListener('mouseup', () => { isDrawing = false; });
+            canvas.addEventListener('mouseleave', () => { isDrawing = false; });
+            canvas.addEventListener('touchstart', (e) => { e.preventDefault();
+                isDrawing = true; const p = getPos(e);
+                scratch(p.x, p.y); });
+            canvas.addEventListener('touchmove', (e) => { e.preventDefault(); if (isDrawing) { const p = getPos(e);
+                    scratch(p.x, p.y); } });
+            canvas.addEventListener('touchend', () => { isDrawing = false; });
+        }
+
+        function initMemoryGame(cfg) {
+            const grid = document.getElementById('memoryGrid');
+            const msgEl = document.getElementById('memoryMsg');
+            if (!grid) return;
+            const emojis = cfg.emojis;
+            const pairs = [...emojis, ...emojis];
+            for (let i = pairs.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [pairs[i], pairs[j]] = [pairs[j], pairs[i]];
+            }
+            let flipped = [],
+                matched = 0,
+                lock = false;
+
+            function render() {
+                grid.innerHTML = '';
+                pairs.forEach((emoji, idx) => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.dataset.idx = idx;
+                    card.dataset.emoji = emoji;
+                    card.innerHTML =
+                        `<span class="back">${cfg.backEmoji}</span><span class="face">${emoji}</span>`;
+                    card.addEventListener('click', () => flipCard(card));
+                    grid.appendChild(card);
+                });
+            }
+
+            function flipCard(card) {
+                if (lock) return;
+                if (card.classList.contains('flipped') || card.classList.contains('matched')) return;
+                card.classList.add('flipped');
+                flipped.push(card);
+                if (flipped.length === 2) {
+                    lock = true;
+                    const [a, b] = flipped;
+                    if (a.dataset.emoji === b.dataset.emoji) {
+                        a.classList.add('matched');
+                        b.classList.add('matched');
+                        matched++;
+                        flipped = [];
+                        lock = false;
+                        msgEl.textContent = replaceName(cfg.messages.match);
+                        if (matched === 6) msgEl.textContent = replaceName(cfg.messages.complete);
+                        setTimeout(() => { if (matched < 6) msgEl.textContent = replaceName(cfg.messages.start); },
+                            800);
+                    } else {
+                        msgEl.textContent = replaceName(cfg.messages.wrong);
+                        setTimeout(() => {
+                            a.classList.remove('flipped');
+                            b.classList.remove('flipped');
+                            flipped = [];
+                            lock = false;
+                            msgEl.textContent = replaceName(cfg.messages.start);
+                        }, 800);
+                    }
+                } else {
+                    msgEl.textContent = replaceName(cfg.messages.flip);
+                }
+            }
+            render();
+        }
+
+        function initComplimentGame() {
+            const card = document.getElementById('complimentCard');
+            const btn = document.getElementById('complimentBtn');
+            if (!card || !btn) return;
+            const list = window._complimentList || CONFIG.games.compliment.list.map(replaceName);
+            btn.addEventListener('click', () => {
+                const msg = list[Math.floor(Math.random() * list.length)];
+                card.textContent = msg;
+                card.classList.remove('pulse');
+                void card.offsetWidth;
+                card.classList.add('pulse');
+            });
+        }
+
+        // ─── Envelope toggle ───
+        document.getElementById('envelopeWrap').addEventListener('click', function() {
+            document.getElementById('envelope').classList.toggle('open');
+            document.getElementById('letter').classList.toggle('show');
+        });
+
+        // ─── Sparkles ───
+        (function() {
+            const layer = document.getElementById('sparkleLayer');
+            for (let i = 0; i < 40; i++) {
+                const span = document.createElement('span');
+                span.style.left = Math.random() * 100 + 'vw';
+                span.style.animationDuration = (12 + Math.random() * 20) + 's';
+                span.style.animationDelay = (Math.random() * 15) + 's';
+                span.style.top = (70 + Math.random() * 30) + 'vh';
+                layer.appendChild(span);
+            }
+        })();
+
+        // ─── Scroll reveal ───
+        function setupReveal() {
+            const els = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('in');
+                });
+            }, { threshold: 0.1 });
+            els.forEach(el => observer.observe(el));
+        }
+
+        // ─── Init ───
+        applyConfig();
+        setupReveal();
+    </script>
+
 </body>
 </html>
