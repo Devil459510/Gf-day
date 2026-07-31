@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
   <style>
-    /* ─── All styles are the same as before ─── */
+    /* ─── all styles – same as before, kept for completeness ─── */
     :root {
       --plum-dark: #1c0f26;
       --plum: #3b2050;
@@ -20,8 +20,6 @@
       --blush: #e8b4bc;
       --ease: cubic-bezier(0.22, 1, 0.36, 1);
     }
-    /* ... (all CSS from before – same as the previous working version) ... */
-    /* For brevity, I'll include the full CSS again below. */
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
@@ -45,66 +43,65 @@
     #hero { min-height: 94vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 40px; }
     .eyebrow { font-family: 'Quicksand', sans-serif; letter-spacing: 0.35em; text-transform: uppercase; font-size: 0.7rem; color: var(--gold-light); margin-bottom: 20px; opacity: 0.9; }
     .envelope-wrap { perspective: 1200px; cursor: pointer; user-select: none; }
-    .envelope { width: min(78vw, 300px); height: min(52vw, 200px); background: linear-gradient(155deg, var(--plum-light), var(--plum) 60%); border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 8px; position: relative; box-shadow: 0 25px 60px -20px rgba(0, 0, 0, 0.7); transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease); }
-    .envelope:hover { transform: translateY(-5px) scale(1.01); box-shadow: 0 30px 70px -20px rgba(0, 0, 0, 0.75); }
+    .envelope { width: min(78vw, 300px); height: min(52vw, 200px); background: linear-gradient(155deg, var(--plum-light), var(--plum) 60%); border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 8px; position: relative; box-shadow: 0 25px 60px -20px rgba(0,0,0,0.7); transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease); }
+    .envelope:hover { transform: translateY(-5px) scale(1.01); box-shadow: 0 30px 70px -20px rgba(0,0,0,0.75); }
     .flap { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(155deg, var(--plum-light), var(--plum)); clip-path: polygon(0 0, 50% 55%, 100% 0); border-bottom: 1px solid rgba(212, 175, 55, 0.3); transform-origin: top; transition: transform 0.9s cubic-bezier(0.6, -0.1, 0.2, 1.15); z-index: 3; border-radius: 8px 8px 0 0; }
     .envelope.open .flap { transform: rotateX(180deg); }
-    .seal { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 54px; height: 54px; background: radial-gradient(circle at 35% 30%, var(--crimson-light), var(--crimson) 70%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5), inset 0 -3px 6px rgba(0, 0, 0, 0.3); z-index: 4; transition: opacity 0.5s ease, transform 0.5s ease; }
+    .seal { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 54px; height: 54px; background: radial-gradient(circle at 35% 30%, var(--crimson-light), var(--crimson) 70%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; box-shadow: 0 4px 10px rgba(0,0,0,0.5), inset 0 -3px 6px rgba(0,0,0,0.3); z-index: 4; transition: opacity 0.5s ease, transform 0.5s ease; }
     .envelope.open .seal { opacity: 0; transform: translate(-50%, -50%) scale(0.3) rotate(25deg); }
     .tap-hint { font-family: 'Quicksand', sans-serif; font-size: 0.85rem; color: var(--blush); margin-top: 24px; letter-spacing: 0.05em; animation: pulse 2.4s ease-in-out infinite; transition: opacity 0.4s ease; }
     .envelope.open~.tap-hint { opacity: 0; }
-    @keyframes pulse { 0%,100% { opacity: 0.55; } 50% { opacity: 1; } }
+    @keyframes pulse { 0%,100%{opacity:0.55;}50%{opacity:1;} }
     #letter { max-width: 560px; opacity: 0; max-height: 0; overflow: hidden; transition: opacity 1s var(--ease), max-height 1.3s var(--ease); }
     #letter.show { opacity: 1; max-height: 1400px; }
-    .letter-card { background: linear-gradient(180deg, rgba(59, 32, 80, 0.55), rgba(28, 15, 38, 0.55)); backdrop-filter: blur(2px); border: 1px solid rgba(212, 175, 55, 0.35); border-radius: 6px; padding: 46px 32px; text-align: left; position: relative; box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.65); }
-    .letter-card::before { content: "🐾"; position: absolute; top: -19px; left: 50%; transform: translateX(-50%); background: var(--plum-dark); padding: 3px 15px; font-size: 1.1rem; border: 1px solid rgba(212, 175, 55, 0.35); border-radius: 50px; }
+    .letter-card { background: linear-gradient(180deg, rgba(59, 32, 80, 0.55), rgba(28, 15, 38, 0.55)); backdrop-filter: blur(2px); border: 1px solid rgba(212, 175, 55, 0.35); border-radius: 6px; padding: 46px 32px; text-align: left; position: relative; box-shadow: 0 30px 70px -30px rgba(0,0,0,0.65); }
+    .letter-card::before { content: "🐾"; position: absolute; top: -19px; left: 50%; transform: translateX(-50%); background: var(--plum-dark); padding: 3px 15px; font-size: 1.1rem; border: 1px solid rgba(212,175,55,0.35); border-radius: 50px; }
     .letter-heading { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 600; font-size: 1.55rem; color: var(--gold-light); margin-bottom: 24px; }
     .letter-card p { font-size: 1.18rem; line-height: 1.8; margin-bottom: 19px; color: var(--cream); }
     .letter-sign { font-family: 'Playfair Display', serif; font-style: italic; color: var(--gold-light); font-size: 1.3rem; margin-top: 12px; }
     h2.section-title { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.85rem; color: var(--gold-light); margin-bottom: 9px; letter-spacing: 0.01em; }
     .section-sub { font-family: 'Quicksand', sans-serif; color: var(--blush); font-size: 0.95rem; margin-bottom: 36px; opacity: 0.9; }
-    .btn { font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 0.95rem; letter-spacing: 0.03em; color: var(--plum-dark); background: linear-gradient(135deg, var(--gold-light), var(--gold)); border: none; padding: 14px 30px; border-radius: 50px; cursor: pointer; margin-top: 24px; box-shadow: 0 12px 26px -12px rgba(212, 175, 55, 0.65); transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease), opacity 0.25s ease; }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 16px 32px -12px rgba(212, 175, 55, 0.75); }
+    .btn { font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 0.95rem; letter-spacing: 0.03em; color: var(--plum-dark); background: linear-gradient(135deg, var(--gold-light), var(--gold)); border: none; padding: 14px 30px; border-radius: 50px; cursor: pointer; margin-top: 24px; box-shadow: 0 12px 26px -12px rgba(212,175,55,0.65); transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease), opacity 0.25s ease; }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 16px 32px -12px rgba(212,175,55,0.75); }
     .btn:active { transform: scale(0.96) translateY(0); }
     .btn:disabled { opacity: 0.6; cursor: default; transform: none; }
     .game-msg { font-family: 'Quicksand', sans-serif; color: var(--blush); margin-top: 18px; min-height: 1.4em; font-size: 0.95rem; transition: opacity 0.4s ease; }
-    #game-area { position: relative; width: 100%; max-width: 460px; height: 360px; margin: 0 auto; background: linear-gradient(180deg, rgba(59, 32, 80, 0.5), rgba(28, 15, 38, 0.7)); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 16px; overflow: hidden; touch-action: none; cursor: none; box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.35); }
-    .cat-player { position: absolute; bottom: 8px; font-size: 2.6rem; transform: translateX(-50%); filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.5)); will-change: left; }
+    #game-area { position: relative; width: 100%; max-width: 460px; height: 360px; margin: 0 auto; background: linear-gradient(180deg, rgba(59,32,80,0.5), rgba(28,15,38,0.7)); border: 1px solid rgba(212,175,55,0.3); border-radius: 16px; overflow: hidden; touch-action: none; cursor: none; box-shadow: inset 0 0 40px rgba(0,0,0,0.35); }
+    .cat-player { position: absolute; bottom: 8px; font-size: 2.6rem; transform: translateX(-50%); filter: drop-shadow(0 6px 8px rgba(0,0,0,0.5)); will-change: left; }
     .treat { position: absolute; font-size: 1.7rem; top: -30px; user-select: none; will-change: top; }
     .catch-pop { position: absolute; font-family: 'Quicksand', sans-serif; font-weight: 700; color: var(--gold-light); font-size: 1rem; pointer-events: none; animation: popUp 0.7s ease forwards; }
-    @keyframes popUp { 0% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-30px) scale(1.2); } }
+    @keyframes popUp { 0% { opacity:1; transform:translateY(0) scale(1); } 100% { opacity:0; transform:translateY(-30px) scale(1.2); } }
     .game-hud { display: flex; justify-content: space-between; max-width: 460px; margin: 16px auto 0; font-family: 'Quicksand', sans-serif; font-weight: 600; color: var(--gold-light); font-size: 0.95rem; }
-    .pounce-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 340px; margin: 0 auto; }
-    .hole { aspect-ratio: 1; background: radial-gradient(circle at 50% 40%, rgba(0, 0, 0, 0.5), rgba(59, 32, 80, 0.5) 70%); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; cursor: pointer; }
-    .hole .paw { font-size: 1.8rem; transform: translateY(140%); transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .pounce-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; max-width: 340px; margin: 0 auto; }
+    .hole { aspect-ratio:1; background: radial-gradient(circle at 50% 40%, rgba(0,0,0,0.5), rgba(59,32,80,0.5) 70%); border: 1px solid rgba(212,175,55,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; cursor: pointer; }
+    .hole .paw { font-size: 1.8rem; transform: translateY(140%); transition: transform 0.18s cubic-bezier(0.34,1.56,0.64,1); }
     .hole.up .paw { transform: translateY(0); }
     .hole.hit .paw { transform: translateY(140%) scale(0.6); transition: transform 0.15s ease-in; }
-    .wheel-wrap { position: relative; width: min(78vw, 300px); height: min(78vw, 300px); margin: 0 auto; }
-    .wheel-pointer { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 20px solid var(--gold-light); z-index: 5; filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.4)); }
-    #wheelCanvas { border-radius: 50%; box-shadow: 0 20px 50px -18px rgba(0, 0, 0, 0.7), 0 0 0 6px rgba(212, 175, 55, 0.25); transition: transform 4.5s cubic-bezier(0.15, 0.85, 0.15, 1); }
-    .wheel-hub { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 20%; height: 20%; background: radial-gradient(circle at 35% 30%, var(--gold-light), var(--gold)); border-radius: 50%; box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4); z-index: 4; }
+    .wheel-wrap { position: relative; width: min(78vw,300px); height: min(78vw,300px); margin: 0 auto; }
+    .wheel-pointer { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 20px solid var(--gold-light); z-index: 5; filter: drop-shadow(0 3px 4px rgba(0,0,0,0.4)); }
+    #wheelCanvas { border-radius: 50%; box-shadow: 0 20px 50px -18px rgba(0,0,0,0.7), 0 0 0 6px rgba(212,175,55,0.25); transition: transform 4.5s cubic-bezier(0.15,0.85,0.15,1); }
+    .wheel-hub { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 20%; height: 20%; background: radial-gradient(circle at 35% 30%, var(--gold-light), var(--gold)); border-radius: 50%; box-shadow: 0 3px 8px rgba(0,0,0,0.4); z-index: 4; }
     .wheel-result { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.35rem; color: var(--gold-light); margin-top: 28px; min-height: 1.6em; }
-    .scratch-wrap { position: relative; width: 100%; max-width: 420px; height: 180px; margin: 0 auto; border-radius: 14px; overflow: hidden; box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.6); }
-    .scratch-message { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 24px; background: linear-gradient(160deg, rgba(158, 27, 58, 0.35), rgba(59, 32, 80, 0.55)); font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.2rem; color: var(--gold-light); text-align: center; }
-    #scratchCanvas { position: absolute; inset: 0; touch-action: none; cursor: grab; }
-    .memory-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 11px; max-width: 400px; margin: 0 auto; }
-    .memory-grid .card { aspect-ratio: 1; background: linear-gradient(135deg, var(--plum-light), var(--plum)); border: 1px solid rgba(212, 175, 55, 0.35); border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 1.7rem; cursor: pointer; transition: transform 0.35s var(--ease), background 0.35s ease, box-shadow 0.35s ease; }
+    .scratch-wrap { position: relative; width: 100%; max-width: 420px; height: 180px; margin: 0 auto; border-radius: 14px; overflow: hidden; box-shadow: 0 20px 50px -20px rgba(0,0,0,0.6); }
+    .scratch-message { position: absolute; inset:0; display: flex; align-items: center; justify-content: center; padding: 24px; background: linear-gradient(160deg, rgba(158,27,58,0.35), rgba(59,32,80,0.55)); font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.2rem; color: var(--gold-light); text-align: center; }
+    #scratchCanvas { position: absolute; inset:0; touch-action: none; cursor: grab; }
+    .memory-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 11px; max-width: 400px; margin: 0 auto; }
+    .memory-grid .card { aspect-ratio:1; background: linear-gradient(135deg, var(--plum-light), var(--plum)); border: 1px solid rgba(212,175,55,0.35); border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 1.7rem; cursor: pointer; transition: transform 0.35s var(--ease), background 0.35s ease, box-shadow 0.35s ease; }
     .memory-grid .card:hover { transform: translateY(-2px); }
     .memory-grid .card.flipped, .memory-grid .card.matched { background: linear-gradient(135deg, var(--gold-light), var(--gold)); transform: rotateY(0); }
-    .memory-grid .card.matched { opacity: 0.5; cursor: default; box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.4); }
+    .memory-grid .card.matched { opacity: 0.5; cursor: default; box-shadow: 0 0 0 2px rgba(212,175,55,0.4); }
     .memory-grid .card .face { display: none; }
     .memory-grid .card.flipped .face, .memory-grid .card.matched .face { display: block; }
     .memory-grid .card .back { display: block; color: var(--gold-light); font-size: 1.2rem; }
     .memory-grid .card.flipped .back, .memory-grid .card.matched .back { display: none; }
-    .compliment-card { background: linear-gradient(180deg, rgba(158, 27, 58, 0.22), rgba(59, 32, 80, 0.4)); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 16px; padding: 38px 28px; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.25rem; color: var(--gold-light); min-height: 110px; display: flex; align-items: center; justify-content: center; transition: opacity 0.3s ease, transform 0.3s ease; }
+    .compliment-card { background: linear-gradient(180deg, rgba(158,27,58,0.22), rgba(59,32,80,0.4)); border: 1px solid rgba(212,175,55,0.3); border-radius: 16px; padding: 38px 28px; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.25rem; color: var(--gold-light); min-height: 110px; display: flex; align-items: center; justify-content: center; transition: opacity 0.3s ease, transform 0.3s ease; }
     .compliment-card.pulse { animation: cardPulse 0.5s var(--ease); }
-    @keyframes cardPulse { 0% { transform: scale(0.97); opacity: 0.5; } 100% { transform: scale(1); opacity: 1; } }
+    @keyframes cardPulse { 0%{transform:scale(0.97); opacity:0.5;} 100%{transform:scale(1); opacity:1;} }
     footer { text-align: center; padding: 70px 20px 90px; font-family: 'Playfair Display', serif; font-style: italic; color: var(--gold-light); font-size: 1.35rem; position: relative; z-index: 1; }
     footer span { display: block; font-family: 'Quicksand', sans-serif; font-style: normal; font-size: 0.8rem; color: var(--blush); margin-top: 12px; letter-spacing: 0.05em; }
   </style>
 </head>
 <body>
-
   <div class="sparkle" id="sparkleLayer"></div>
 
   <section id="hero">
@@ -135,10 +132,10 @@
 
   <script>
     // ═══════════════════════════════════════════════════════════════
-    //  ✏️  CONFIG – edit everything here
+    //  ✏️  CONFIG – edit this to customise everything
     // ═══════════════════════════════════════════════════════════════
     const CONFIG = {
-      recipientName: "zyro",
+      recipientName: "zyro",  // 👈 change this to your name
       siteTitle: "💌 A Little Something for {{name}}",
       envelope: {
         label: "💌 For {{name}}",
@@ -184,18 +181,8 @@
         wheel: {
           title: "🎡 Date Spin",
           subtitle: "Let fate decide our next outing",
-          // ⭐ FIXED: keep a reasonable number of options (max 10) for a clean wheel
-          options: [
-            "🍜 Ramen", "🎬 Movie", "☕ Coffee",
-            "🚶 Walk", "📚 Bookstore", "🍰 Dessert",
-            "🎨 Paint", "🎵 Music", "🍷 Wine", "🥐 Bakery"
-          ],
-          // Provide enough colours – if fewer, it cycles
-          colors: [
-            "#9e1b3a", "#5a3470", "#d4af37",
-            "#c23a53", "#3b2050", "#f0d98c",
-            "#7a4a8a", "#e8b4bc", "#a64d79", "#6b3e7a"
-          ],
+          options: ["🍜 Ramen", "🎬 Movie", "☕ Coffee", "🚶 Walk", "📚 Bookstore", "🍰 Dessert", "🎨 Paint", "🎵 Music", "🍷 Wine", "🥐 Bakery"],
+          colors: ["#9e1b3a","#5a3470","#d4af37","#c23a53","#3b2050","#f0d98c","#7a4a8a","#e8b4bc","#a64d79","#6b3e7a"],
           resultPrefix: "🎯 ",
           spinBtn: "🔄 Spin!"
         },
@@ -207,7 +194,7 @@
         memory: {
           title: "🧩 Memory Match",
           subtitle: "Find all 6 pairs of gold‑purple icons",
-          emojis: ["🐱", "🐾", "🌟", "💜", "✨", "🌙"],
+          emojis: ["🐱","🐾","🌟","💜","✨","🌙"],
           backEmoji: "⭐",
           messages: {
             start: "⭐ Flip cards to match, {{name}}!",
@@ -254,7 +241,7 @@
     };
 
     // ═══════════════════════════════════════════════════════════════
-    //  🚀  DO NOT EDIT BELOW – it builds everything from CONFIG
+    //  🚀  BUILD ENGINE – do not edit below unless you know what you're doing
     // ═══════════════════════════════════════════════════════════════
 
     function replaceName(str) {
@@ -411,7 +398,7 @@
       complimentSection.appendChild(compBtn);
       container.appendChild(complimentSection);
 
-      // Init games
+      // Init all games
       initCatchGame(games.catch);
       initPounceGame(games.pounce);
       initWheelGame(games.wheel);
@@ -420,19 +407,154 @@
       initComplimentGame();
     }
 
-    // ---- Game initializers (same but with improved wheel) ----
+    // ─── CATCH GAME ───
+    function initCatchGame(cfg) {
+      const area = document.getElementById('game-area');
+      const cat = document.getElementById('catPlayer');
+      const scoreEl = document.getElementById('catchScore');
+      const timerEl = document.getElementById('catchTimer');
+      const msgEl = document.getElementById('catchMsg');
+      if (!area) return;
+      let score = 0, timeLeft = cfg.duration, gameRunning = false, treatInterval, timerInterval;
+      let catX = 50;
+      function updateCat() { cat.style.left = catX + '%'; }
+      function spawnTreat() {
+        if (!gameRunning) return;
+        const treat = document.createElement('div');
+        treat.className = 'treat';
+        treat.textContent = cfg.treatEmoji;
+        const x = 5 + Math.random() * 90;
+        treat.style.left = x + '%';
+        treat.style.top = '-30px';
+        area.appendChild(treat);
+        let y = -30;
+        const fall = setInterval(() => {
+          y += 3;
+          treat.style.top = y + 'px';
+          const rect = treat.getBoundingClientRect();
+          const catRect = cat.getBoundingClientRect();
+          if (rect.bottom >= catRect.top && rect.left < catRect.right - 20 && rect.right > catRect.left + 20) {
+            clearInterval(fall);
+            treat.remove();
+            score++;
+            scoreEl.textContent = score;
+            const pop = document.createElement('div');
+            pop.className = 'catch-pop';
+            pop.textContent = '+1 🐟';
+            pop.style.left = (x + 2) + '%';
+            pop.style.top = '50%';
+            area.appendChild(pop);
+            setTimeout(() => pop.remove(), 700);
+            msgEl.textContent = replaceName(cfg.messages.catch);
+            setTimeout(() => { if (gameRunning) msgEl.textContent = replaceName(cfg.messages.playing); }, 400);
+          }
+          if (y > 380) {
+            clearInterval(fall);
+            treat.remove();
+            msgEl.textContent = replaceName(cfg.messages.miss);
+            setTimeout(() => { if (gameRunning) msgEl.textContent = replaceName(cfg.messages.playing); }, 500);
+          }
+        }, 20);
+      }
+      function moveCat(e) {
+        const rect = area.getBoundingClientRect();
+        const x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
+        catX = Math.max(5, Math.min(95, (x / rect.width) * 100));
+        updateCat();
+      }
+      area.addEventListener('mousemove', moveCat);
+      area.addEventListener('touchmove', (e) => { e.preventDefault(); moveCat(e); });
+      function startGame() {
+        if (gameRunning) return;
+        gameRunning = true;
+        score = 0;
+        timeLeft = cfg.duration;
+        scoreEl.textContent = '0';
+        timerEl.textContent = cfg.duration;
+        msgEl.textContent = replaceName(cfg.messages.start);
+        treatInterval = setInterval(spawnTreat, cfg.spawnInterval);
+        timerInterval = setInterval(() => {
+          timeLeft--;
+          timerEl.textContent = timeLeft;
+          if (timeLeft <= 0) {
+            clearInterval(treatInterval);
+            clearInterval(timerInterval);
+            gameRunning = false;
+            msgEl.textContent = cfg.messages.gameOver + score;
+            document.querySelectorAll('.treat').forEach(el => el.remove());
+          }
+        }, 1000);
+      }
+      area.addEventListener('click', () => { if (!gameRunning) startGame(); });
+      area.addEventListener('touchstart', (e) => { if (!gameRunning) { e.preventDefault(); startGame(); } });
+      setTimeout(() => { if (!gameRunning) msgEl.textContent = replaceName(cfg.messages.start); }, 500);
+    }
 
-    function initCatchGame(cfg) { /* same as before – unchanged */ }
-    function initPounceGame(cfg) { /* same as before – unchanged */ }
+    // ─── POUNCE GAME ───
+    function initPounceGame(cfg) {
+      const grid = document.getElementById('pounceGrid');
+      const scoreEl = document.getElementById('pounceScore');
+      const timerEl = document.getElementById('pounceTimer');
+      const msgEl = document.getElementById('pounceMsg');
+      if (!grid) return;
+      let score = 0, timeLeft = cfg.duration, gameRunning = false;
+      let pounceInterval, timerInterval;
+      const holes = grid.querySelectorAll('.hole');
+      function showPaw() {
+        if (!gameRunning) return;
+        holes.forEach(h => h.classList.remove('up', 'hit'));
+        const idx = Math.floor(Math.random() * 9);
+        holes[idx].classList.add('up');
+        setTimeout(() => { if (gameRunning) holes[idx].classList.remove('up'); }, 1200);
+      }
+      function startPounce() {
+        if (gameRunning) return;
+        gameRunning = true;
+        score = 0;
+        timeLeft = cfg.duration;
+        scoreEl.textContent = '0';
+        timerEl.textContent = cfg.duration;
+        msgEl.textContent = replaceName(cfg.messages.start);
+        pounceInterval = setInterval(showPaw, 700);
+        timerInterval = setInterval(() => {
+          timeLeft--;
+          timerEl.textContent = timeLeft;
+          if (timeLeft <= 0) {
+            clearInterval(pounceInterval);
+            clearInterval(timerInterval);
+            gameRunning = false;
+            holes.forEach(h => h.classList.remove('up', 'hit'));
+            msgEl.textContent = cfg.messages.gameOver + score;
+          }
+        }, 1000);
+      }
+      holes.forEach(hole => {
+        hole.addEventListener('click', () => {
+          if (!gameRunning) return;
+          if (hole.classList.contains('up') && !hole.classList.contains('hit')) {
+            hole.classList.add('hit');
+            score++;
+            scoreEl.textContent = score;
+            msgEl.textContent = replaceName(cfg.messages.hit);
+            setTimeout(() => {
+              hole.classList.remove('up', 'hit');
+              msgEl.textContent = replaceName(cfg.messages.playing);
+            }, 300);
+          }
+        });
+      });
+      grid.addEventListener('click', () => { if (!gameRunning) startPounce(); });
+      grid.addEventListener('touchstart', (e) => { if (!gameRunning) { e.preventDefault(); startPounce(); } });
+      setTimeout(() => { if (!gameRunning) msgEl.textContent = replaceName(cfg.messages.start); }, 500);
+    }
 
-    // ⭐ IMPROVED WHEEL – adapts to any number of options
+    // ─── WHEEL GAME ───
     function initWheelGame(cfg) {
       const canvas = document.getElementById('wheelCanvas');
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
       const resultEl = document.getElementById('wheelResult');
       const spinBtn = document.getElementById('spinBtn');
-
       const options = cfg.options;
       const colors = cfg.colors;
       const segAngle = (2 * Math.PI) / options.length;
@@ -453,8 +575,6 @@
           ctx.strokeStyle = 'rgba(255,255,255,0.15)';
           ctx.lineWidth = 2;
           ctx.stroke();
-
-          // Text – auto‑scale based on number of options
           ctx.save();
           ctx.translate(cx, cy);
           ctx.rotate(start + segAngle / 2);
@@ -467,19 +587,16 @@
           ctx.fillStyle = '#fff';
           ctx.shadowColor = 'rgba(0,0,0,0.6)';
           ctx.shadowBlur = 10;
-          // Offset distance from centre – adjust if many options
           const textR = (options.length <= 8) ? r * 0.62 : r * 0.56;
           ctx.fillText(options[i], textR, 0);
           ctx.restore();
         }
-        // outer ring
         ctx.beginPath();
         ctx.arc(cx, cy, r, 0, 2 * Math.PI);
         ctx.strokeStyle = 'rgba(212,175,55,0.4)';
         ctx.lineWidth = 4;
         ctx.stroke();
       }
-
       drawWheel(0);
 
       function spin() {
@@ -507,17 +624,129 @@
       canvas.addEventListener('click', spin);
     }
 
-    function initScratchGame() { /* same as before */ }
-    function initMemoryGame(cfg) { /* same as before */ }
-    function initComplimentGame() { /* same as before */ }
+    // ─── SCRATCH GAME ───
+    function initScratchGame() {
+      const canvas = document.getElementById('scratchCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const wrap = canvas.parentElement;
+      const w = wrap.clientWidth || 420;
+      const h = 180;
+      canvas.width = w;
+      canvas.height = h;
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      ctx.fillStyle = '#d4af37';
+      ctx.fillRect(0, 0, w, h);
+      for (let i = 0; i < 60; i++) {
+        ctx.fillStyle = i % 2 === 0 ? 'rgba(255,215,0,0.3)' : 'rgba(184,134,11,0.3)';
+        ctx.beginPath();
+        ctx.arc(Math.random() * w, Math.random() * h, 2 + Math.random() * 6, 0, 2 * Math.PI);
+        ctx.fill();
+      }
+      let isDrawing = false;
+      function getPos(e) {
+        const rect = canvas.getBoundingClientRect();
+        const x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
+        const y = (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top;
+        return { x, y };
+      }
+      function scratch(x, y) {
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.beginPath();
+        ctx.arc(x, y, 18, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.globalCompositeOperation = 'source-over';
+      }
+      canvas.addEventListener('mousedown', (e) => { isDrawing = true; const p = getPos(e); scratch(p.x, p.y); });
+      canvas.addEventListener('mousemove', (e) => { if (isDrawing) { const p = getPos(e); scratch(p.x, p.y); } });
+      canvas.addEventListener('mouseup', () => { isDrawing = false; });
+      canvas.addEventListener('mouseleave', () => { isDrawing = false; });
+      canvas.addEventListener('touchstart', (e) => { e.preventDefault(); isDrawing = true; const p = getPos(e); scratch(p.x, p.y); });
+      canvas.addEventListener('touchmove', (e) => { e.preventDefault(); if (isDrawing) { const p = getPos(e); scratch(p.x, p.y); } });
+      canvas.addEventListener('touchend', () => { isDrawing = false; });
+    }
 
-    // Envelope toggle
+    // ─── MEMORY GAME ───
+    function initMemoryGame(cfg) {
+      const grid = document.getElementById('memoryGrid');
+      const msgEl = document.getElementById('memoryMsg');
+      if (!grid) return;
+      const emojis = cfg.emojis;
+      const pairs = [...emojis, ...emojis];
+      for (let i = pairs.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [pairs[i], pairs[j]] = [pairs[j], pairs[i]];
+      }
+      let flipped = [], matched = 0, lock = false;
+      function render() {
+        grid.innerHTML = '';
+        pairs.forEach((emoji, idx) => {
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.dataset.idx = idx;
+          card.dataset.emoji = emoji;
+          card.innerHTML = `<span class="back">${cfg.backEmoji}</span><span class="face">${emoji}</span>`;
+          card.addEventListener('click', () => flipCard(card));
+          grid.appendChild(card);
+        });
+      }
+      function flipCard(card) {
+        if (lock) return;
+        if (card.classList.contains('flipped') || card.classList.contains('matched')) return;
+        card.classList.add('flipped');
+        flipped.push(card);
+        if (flipped.length === 2) {
+          lock = true;
+          const [a, b] = flipped;
+          if (a.dataset.emoji === b.dataset.emoji) {
+            a.classList.add('matched');
+            b.classList.add('matched');
+            matched++;
+            flipped = [];
+            lock = false;
+            msgEl.textContent = replaceName(cfg.messages.match);
+            if (matched === 6) msgEl.textContent = replaceName(cfg.messages.complete);
+            setTimeout(() => { if (matched < 6) msgEl.textContent = replaceName(cfg.messages.start); }, 800);
+          } else {
+            msgEl.textContent = replaceName(cfg.messages.wrong);
+            setTimeout(() => {
+              a.classList.remove('flipped');
+              b.classList.remove('flipped');
+              flipped = [];
+              lock = false;
+              msgEl.textContent = replaceName(cfg.messages.start);
+            }, 800);
+          }
+        } else {
+          msgEl.textContent = replaceName(cfg.messages.flip);
+        }
+      }
+      render();
+    }
+
+    // ─── COMPLIMENT GAME ───
+    function initComplimentGame() {
+      const card = document.getElementById('complimentCard');
+      const btn = document.getElementById('complimentBtn');
+      if (!card || !btn) return;
+      const list = window._complimentList || CONFIG.games.compliment.list.map(replaceName);
+      btn.addEventListener('click', () => {
+        const msg = list[Math.floor(Math.random() * list.length)];
+        card.textContent = msg;
+        card.classList.remove('pulse');
+        void card.offsetWidth;
+        card.classList.add('pulse');
+      });
+    }
+
+    // ─── Envelope ───
     document.getElementById('envelopeWrap').addEventListener('click', function() {
       document.getElementById('envelope').classList.toggle('open');
       document.getElementById('letter').classList.toggle('show');
     });
 
-    // Sparkles
+    // ─── Sparkles ───
     (function() {
       const layer = document.getElementById('sparkleLayer');
       for (let i = 0; i < 40; i++) {
@@ -530,6 +759,7 @@
       }
     })();
 
+    // ─── Scroll reveal ───
     function setupReveal() {
       const els = document.querySelectorAll('.reveal');
       const observer = new IntersectionObserver((entries) => {
@@ -540,6 +770,7 @@
       els.forEach(el => observer.observe(el));
     }
 
+    // ─── Start ───
     applyConfig();
     setupReveal();
   </script>
