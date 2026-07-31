@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
   <style>
-    /* ─── all styles (same as before, kept for completeness) ─── */
+    /* ─── same base styles ─── */
     :root {
       --plum-dark: #1c0f26;
       --plum: #3b2050;
@@ -77,11 +77,56 @@
     .hole .paw { font-size: 1.8rem; transform: translateY(140%); transition: transform 0.18s cubic-bezier(0.34,1.56,0.64,1); }
     .hole.up .paw { transform: translateY(0); }
     .hole.hit .paw { transform: translateY(140%) scale(0.6); transition: transform 0.15s ease-in; }
-    .wheel-wrap { position: relative; width: min(78vw,300px); height: min(78vw,300px); margin: 0 auto; }
-    .wheel-pointer { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 20px solid var(--gold-light); z-index: 5; filter: drop-shadow(0 3px 4px rgba(0,0,0,0.4)); }
-    #wheelCanvas { border-radius: 50%; box-shadow: 0 20px 50px -18px rgba(0,0,0,0.7), 0 0 0 6px rgba(212,175,55,0.25); transition: transform 4.5s cubic-bezier(0.15,0.85,0.15,1); }
-    .wheel-hub { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 20%; height: 20%; background: radial-gradient(circle at 35% 30%, var(--gold-light), var(--gold)); border-radius: 50%; box-shadow: 0 3px 8px rgba(0,0,0,0.4); z-index: 4; }
-    .wheel-result { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.35rem; color: var(--gold-light); margin-top: 28px; min-height: 1.6em; }
+
+    /* ─── WHEEL – INCREASED SIZE ─── */
+    .wheel-wrap {
+      position: relative;
+      width: min(85vw, 400px);   /* bigger: up to 400px on desktop */
+      height: min(85vw, 400px);
+      margin: 0 auto;
+    }
+    .wheel-pointer {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 14px solid transparent;
+      border-right: 14px solid transparent;
+      border-top: 24px solid var(--gold-light);
+      z-index: 5;
+      filter: drop-shadow(0 3px 4px rgba(0,0,0,0.4));
+    }
+    #wheelCanvas {
+      width: 100% !important;
+      height: 100% !important;
+      border-radius: 50%;
+      box-shadow: 0 20px 50px -18px rgba(0,0,0,0.7), 0 0 0 6px rgba(212,175,55,0.25);
+      transition: transform 4.5s cubic-bezier(0.15, 0.85, 0.15, 1);
+      display: block;
+    }
+    .wheel-hub {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 20%;
+      height: 20%;
+      background: radial-gradient(circle at 35% 30%, var(--gold-light), var(--gold));
+      border-radius: 50%;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+      z-index: 4;
+    }
+    .wheel-result {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.35rem;
+      color: var(--gold-light);
+      margin-top: 28px;
+      min-height: 1.6em;
+    }
+
     .scratch-wrap { position: relative; width: 100%; max-width: 420px; height: 180px; margin: 0 auto; border-radius: 14px; overflow: hidden; box-shadow: 0 20px 50px -20px rgba(0,0,0,0.6); }
     .scratch-message { position: absolute; inset:0; display: flex; align-items: center; justify-content: center; padding: 24px; background: linear-gradient(160deg, rgba(158,27,58,0.35), rgba(59,32,80,0.55)); font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.2rem; color: var(--gold-light); text-align: center; }
     #scratchCanvas { position: absolute; inset:0; touch-action: none; cursor: grab; }
@@ -131,11 +176,9 @@
   </footer>
 
   <script>
-    // ═══════════════════════════════════════════════════════════════
-    //  ✏️  CONFIG – edit this to customise everything
-    // ═══════════════════════════════════════════════════════════════
+    // ─── CONFIG (unchanged) ───
     const CONFIG = {
-      recipientName: "zyro",  // 👈 change this to your name
+      recipientName: "zyro",
       siteTitle: "💌 A Little Something for {{name}}",
       envelope: {
         label: "💌 For {{name}}",
@@ -181,8 +224,8 @@
         wheel: {
           title: "🎡 Date Spin",
           subtitle: "Let fate decide our next outing",
-          options: ["🍜 Ramen", "🎬 Movie", "☕ Coffee", "🚶 Walk", "📚 Bookstore", "🍰 Dessert", "🎨 Paint", "🎵 Music", "🍷 Wine", "🥐 Bakery"],
-          colors: ["#9e1b3a","#5a3470","#d4af37","#c23a53","#3b2050","#f0d98c","#7a4a8a","#e8b4bc","#a64d79","#6b3e7a"],
+          options: ["🍜 Ramen", "🎬 Movie", "☕ Coffee", "🚶 Walk", "📚 Bookstore", "🍰 Dessert", "🎨 Paint", "🎵 Music"],
+          colors: ["#9e1b3a", "#5a3470", "#d4af37", "#c23a53", "#3b2050", "#f0d98c", "#7a4a8a", "#e8b4bc"],
           resultPrefix: "🎯 ",
           spinBtn: "🔄 Spin!"
         },
@@ -194,7 +237,7 @@
         memory: {
           title: "🧩 Memory Match",
           subtitle: "Find all 6 pairs of gold‑purple icons",
-          emojis: ["🐱","🐾","🌟","💜","✨","🌙"],
+          emojis: ["🐱", "🐾", "🌟", "💜", "✨", "🌙"],
           backEmoji: "⭐",
           messages: {
             start: "⭐ Flip cards to match, {{name}}!",
@@ -240,10 +283,7 @@
       }
     };
 
-    // ═══════════════════════════════════════════════════════════════
-    //  🚀  BUILD ENGINE – do not edit below unless you know what you're doing
-    // ═══════════════════════════════════════════════════════════════
-
+    // ─── BUILD ENGINE (unchanged) ───
     function replaceName(str) {
       return str.replace(/\{\{name\}\}/g, CONFIG.recipientName || 'you');
     }
@@ -398,7 +438,6 @@
       complimentSection.appendChild(compBtn);
       container.appendChild(complimentSection);
 
-      // Init all games after building
       initCatchGame(games.catch);
       initPounceGame(games.pounce);
       initWheelGame(games.wheel);
@@ -407,7 +446,8 @@
       initComplimentGame();
     }
 
-    // ─── CATCH ───
+    // ─── GAME FUNCTIONS (exactly as before) ───
+
     function initCatchGame(cfg) {
       const area = document.getElementById('game-area');
       const cat = document.getElementById('catPlayer');
@@ -490,7 +530,6 @@
       setTimeout(() => { if (!gameRunning) msgEl.textContent = replaceName(cfg.messages.start); }, 500);
     }
 
-    // ─── POUNCE ───
     function initPounceGame(cfg) {
       const grid = document.getElementById('pounceGrid');
       const scoreEl = document.getElementById('pounceScore');
@@ -548,7 +587,6 @@
       setTimeout(() => { if (!gameRunning) msgEl.textContent = replaceName(cfg.messages.start); }, 500);
     }
 
-    // ─── WHEEL ───
     function initWheelGame(cfg) {
       const canvas = document.getElementById('wheelCanvas');
       if (!canvas) return;
@@ -583,11 +621,12 @@
           let fontSize = 28;
           if (options.length > 8) fontSize = 22;
           if (options.length > 10) fontSize = 18;
+          if (options.length > 12) fontSize = 15;
           ctx.font = `bold ${fontSize}px "Quicksand", sans-serif`;
           ctx.fillStyle = '#fff';
           ctx.shadowColor = 'rgba(0,0,0,0.6)';
           ctx.shadowBlur = 10;
-          const textR = (options.length <= 8) ? r * 0.62 : r * 0.56;
+          const textR = (options.length <= 8) ? r * 0.62 : (options.length <= 10 ? r * 0.58 : r * 0.54);
           ctx.fillText(options[i], textR, 0);
           ctx.restore();
         }
@@ -624,7 +663,6 @@
       canvas.addEventListener('click', spin);
     }
 
-    // ─── SCRATCH ───
     function initScratchGame() {
       const canvas = document.getElementById('scratchCanvas');
       if (!canvas) return;
@@ -636,8 +674,6 @@
       canvas.height = h;
       canvas.style.width = w + 'px';
       canvas.style.height = h + 'px';
-
-      // Draw gold foil
       ctx.fillStyle = '#d4af37';
       ctx.fillRect(0, 0, w, h);
       for (let i = 0; i < 60; i++) {
@@ -646,7 +682,6 @@
         ctx.arc(Math.random() * w, Math.random() * h, 2 + Math.random() * 6, 0, 2 * Math.PI);
         ctx.fill();
       }
-
       let isDrawing = false;
       function getPos(e) {
         const rect = canvas.getBoundingClientRect();
@@ -670,7 +705,6 @@
       canvas.addEventListener('touchend', () => { isDrawing = false; });
     }
 
-    // ─── MEMORY ───
     function initMemoryGame(cfg) {
       const grid = document.getElementById('memoryGrid');
       const msgEl = document.getElementById('memoryMsg');
@@ -728,7 +762,6 @@
       render();
     }
 
-    // ─── COMPLIMENT ───
     function initComplimentGame() {
       const card = document.getElementById('complimentCard');
       const btn = document.getElementById('complimentBtn');
@@ -743,14 +776,14 @@
       });
     }
 
-    // ─── ENVELOPE (isolated) ───
+    // ─── Envelope ───
     document.getElementById('envelopeWrap').addEventListener('click', function(e) {
-      e.stopPropagation(); // prevent any accidental triggers to other elements
+      e.stopPropagation();
       document.getElementById('envelope').classList.toggle('open');
       document.getElementById('letter').classList.toggle('show');
     });
 
-    // ─── SPARKLES ───
+    // ─── Sparkles ───
     (function() {
       const layer = document.getElementById('sparkleLayer');
       for (let i = 0; i < 40; i++) {
@@ -763,7 +796,6 @@
       }
     })();
 
-    // ─── SCROLL REVEAL ───
     function setupReveal() {
       const els = document.querySelectorAll('.reveal');
       const observer = new IntersectionObserver((entries) => {
@@ -774,7 +806,6 @@
       els.forEach(el => observer.observe(el));
     }
 
-    // ─── START ───
     applyConfig();
     setupReveal();
   </script>
